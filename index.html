@@ -30,15 +30,26 @@ body {
 }
 
 button,
-input {
+input,
+textarea,
+select {
     font: inherit;
 }
+
+button {
+    cursor: pointer;
+}
+
+/* =========================
+   NAV
+========================= */
 
 nav {
     height: 76px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     max-width: 1180px;
     margin: auto;
     padding: 0 24px;
@@ -74,15 +85,20 @@ nav {
     background: white;
 }
 
-/* HERO */
+/* =========================
+   HERO
+========================= */
 
 .hero {
     max-width: 1180px;
     margin: auto;
+
     min-height: 650px;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     padding: 70px 24px;
 }
 
@@ -92,12 +108,16 @@ nav {
 
 .badge {
     display: inline-block;
+
     background: #fff;
     border: 1px solid #e6e2da;
+
     padding: 9px 15px;
     border-radius: 999px;
+
     font-size: 13px;
     color: #666;
+
     margin-bottom: 28px;
 }
 
@@ -105,6 +125,7 @@ nav {
     font-size: clamp(52px, 7vw, 86px);
     line-height: 0.98;
     letter-spacing: -4px;
+
     margin-bottom: 28px;
 }
 
@@ -116,7 +137,9 @@ nav {
     font-size: 19px;
     line-height: 1.6;
     color: #666;
+
     max-width: 520px;
+
     margin-bottom: 36px;
 }
 
@@ -129,15 +152,17 @@ nav {
 .primary,
 .secondary {
     padding: 15px 24px;
+
     border-radius: 999px;
+
     font-size: 15px;
     font-weight: 600;
-    cursor: pointer;
 }
 
 .primary {
     background: #1d1d1f;
     color: white;
+
     border: none;
 }
 
@@ -148,10 +173,13 @@ nav {
 .secondary {
     background: white;
     color: #1d1d1f;
+
     border: 1px solid #ddd;
 }
 
-/* LETTER CARD */
+/* =========================
+   LETTER CARD
+========================= */
 
 .hero-card {
     width: 370px;
@@ -161,24 +189,33 @@ nav {
 
 .card {
     position: absolute;
+
     width: 310px;
     height: 380px;
+
     background: #fff;
+
     border-radius: 18px;
-    box-shadow: 0 30px 70px rgba(0,0,0,0.12);
+
+    box-shadow:
+        0 30px 70px rgba(0,0,0,0.12);
+
     padding: 30px;
 }
 
 .card-back {
     right: 0;
     top: 35px;
+
     transform: rotate(7deg);
+
     background: #e9e5dc;
 }
 
 .card-front {
     left: 0;
     top: 0;
+
     transform: rotate(-4deg);
 }
 
@@ -186,17 +223,22 @@ nav {
     display: flex;
     align-items: center;
     gap: 14px;
+
     margin-bottom: 30px;
 }
 
 .avatar {
     width: 48px;
     height: 48px;
+
     border-radius: 50%;
+
     background: #ddd;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     font-size: 20px;
 }
 
@@ -207,45 +249,60 @@ nav {
 .country {
     font-size: 13px;
     color: #777;
+
     margin-top: 4px;
 }
 
 .card h3 {
     font-size: 27px;
+
     margin-bottom: 18px;
 }
 
 .card p {
     font-size: 15px;
     line-height: 1.7;
+
     color: #666;
 }
 
 .line {
     height: 1px;
+
     background: #eee;
+
     margin: 25px 0;
 }
 
 .stamp {
     position: absolute;
+
     right: 25px;
     bottom: 25px;
+
     width: 55px;
     height: 55px;
+
     border: 2px solid #bbb;
+
     border-radius: 50%;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     font-size: 11px;
+
     color: #777;
 }
 
-/* FEATURES */
+/* =========================
+   FEATURES
+========================= */
 
 .features {
     background: #fff;
+
     padding: 90px 24px;
 }
 
@@ -256,36 +313,48 @@ nav {
 
 .section-title {
     max-width: 650px;
+
     margin-bottom: 55px;
 }
 
 .section-title h2 {
     font-size: 48px;
+
     letter-spacing: -2px;
+
     margin-bottom: 15px;
 }
 
 .section-title p {
     color: #777;
+
     font-size: 17px;
+
     line-height: 1.6;
 }
 
 .feature-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
     gap: 20px;
 }
 
 .feature {
     border: 1px solid #eee;
+
     border-radius: 18px;
+
     padding: 30px;
+
     background: #fafafa;
 }
 
 .feature-icon {
     font-size: 30px;
+
     margin-bottom: 25px;
 }
 
@@ -295,21 +364,33 @@ nav {
 
 .feature p {
     color: #777;
+
     line-height: 1.6;
+
     font-size: 14px;
 }
 
-/* MODAL */
+/* =========================
+   MODAL
+========================= */
 
 .modal {
     display: none;
+
     position: fixed;
+
     inset: 0;
-    background: rgba(0,0,0,0.45);
+
+    background:
+        rgba(0,0,0,0.45);
+
     backdrop-filter: blur(5px);
+
     align-items: center;
     justify-content: center;
+
     padding: 20px;
+
     z-index: 1000;
 }
 
@@ -320,32 +401,45 @@ nav {
 .modal-box {
     width: 100%;
     max-width: 420px;
+
     background: white;
+
     border-radius: 24px;
+
     padding: 34px;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.2);
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,0.2);
+
     position: relative;
 }
 
 .close {
     position: absolute;
+
     top: 18px;
     right: 20px;
+
     border: none;
+
     background: transparent;
+
     font-size: 24px;
-    cursor: pointer;
+
     color: #777;
 }
 
 .modal-box h2 {
     font-size: 30px;
+
     margin-bottom: 8px;
 }
 
 .modal-subtitle {
     color: #777;
+
     font-size: 14px;
+
     margin-bottom: 25px;
 }
 
@@ -355,53 +449,98 @@ nav {
 
 .form-group label {
     display: block;
+
     font-size: 13px;
+
     font-weight: 600;
+
     margin-bottom: 7px;
 }
 
-.form-group input {
+.form-group input,
+.form-group textarea,
+.form-group select {
+
     width: 100%;
+
     padding: 13px 15px;
+
     border: 1px solid #ddd;
+
     border-radius: 12px;
+
     outline: none;
+
+    background: white;
 }
 
-.form-group input:focus {
+.form-group textarea {
+
+    min-height: 120px;
+
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+
     border-color: #999;
 }
 
 .form-submit {
+
     width: 100%;
+
     padding: 14px;
+
     border: none;
+
     border-radius: 999px;
+
     background: #1d1d1f;
+
     color: white;
+
     font-weight: 600;
-    cursor: pointer;
+
     margin-top: 5px;
 }
 
 .switch {
+
     text-align: center;
+
     margin-top: 18px;
+
     font-size: 14px;
+
     color: #777;
 }
 
 .switch span {
+
     color: #111;
+
     font-weight: 600;
+
     cursor: pointer;
 }
 
+/* =========================
+   MESSAGE
+========================= */
+
 .message {
+
     margin-top: 15px;
+
     padding: 11px 13px;
+
     border-radius: 10px;
+
     font-size: 13px;
+
     display: none;
 }
 
@@ -410,21 +549,290 @@ nav {
 }
 
 .message.error {
+
     background: #fff0f0;
+
     color: #b42318;
 }
 
 .message.success {
+
     background: #effaf1;
+
     color: #217a36;
 }
 
-footer {
-    padding: 40px 24px;
-    text-align: center;
-    color: #888;
+/* =========================
+   APP
+========================= */
+
+#appPage {
+
+    display: none;
+
+    min-height: 100vh;
+
+    background: #f7f5f0;
+}
+
+.app-nav {
+
+    height: 76px;
+
+    background: rgba(255,255,255,0.85);
+
+    border-bottom: 1px solid #eee;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 28px;
+}
+
+.app-nav-left {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 35px;
+}
+
+.app-nav-logo {
+
+    font-size: 23px;
+
+    font-weight: 700;
+}
+
+.app-nav-link {
+
+    color: #777;
+
+    font-size: 14px;
+}
+
+.app-nav-right {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.profile-mini {
+
+    width: 38px;
+    height: 38px;
+
+    border-radius: 50%;
+
+    background: #e6e2da;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 700;
+}
+
+.logout-btn {
+
+    border: 1px solid #ddd;
+
+    background: white;
+
+    padding: 9px 15px;
+
+    border-radius: 999px;
+
     font-size: 13px;
 }
+
+.app-content {
+
+    max-width: 1000px;
+
+    margin: auto;
+
+    padding: 70px 24px;
+}
+
+.app-heading {
+
+    margin-bottom: 40px;
+}
+
+.app-heading h1 {
+
+    font-size: 48px;
+
+    letter-spacing: -2px;
+
+    margin-bottom: 10px;
+}
+
+.app-heading p {
+
+    color: #777;
+
+    font-size: 17px;
+}
+
+/* =========================
+   PROFILE CREATION
+========================= */
+
+.profile-card {
+
+    max-width: 650px;
+
+    margin: 30px auto;
+
+    background: white;
+
+    border: 1px solid #eee;
+
+    border-radius: 25px;
+
+    padding: 40px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.06);
+}
+
+.profile-card h2 {
+
+    font-size: 30px;
+
+    margin-bottom: 8px;
+}
+
+.profile-card .subtitle {
+
+    color: #777;
+
+    margin-bottom: 30px;
+
+    line-height: 1.6;
+}
+
+.profile-submit {
+
+    width: 100%;
+
+    padding: 15px;
+
+    border: none;
+
+    border-radius: 999px;
+
+    background: #1d1d1f;
+
+    color: white;
+
+    font-weight: 600;
+
+    margin-top: 5px;
+}
+
+/* =========================
+   DISCOVER
+========================= */
+
+.discover-page {
+
+    display: none;
+}
+
+.user-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 20px;
+}
+
+.user-card {
+
+    background: white;
+
+    border: 1px solid #eee;
+
+    border-radius: 20px;
+
+    padding: 25px;
+}
+
+.user-avatar {
+
+    width: 58px;
+    height: 58px;
+
+    border-radius: 50%;
+
+    background: #e6e2da;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 24px;
+
+    margin-bottom: 18px;
+}
+
+.user-card h3 {
+
+    margin-bottom: 5px;
+}
+
+.user-country {
+
+    color: #777;
+
+    font-size: 13px;
+
+    margin-bottom: 15px;
+}
+
+.user-bio {
+
+    color: #666;
+
+    line-height: 1.6;
+
+    font-size: 14px;
+
+    margin-bottom: 20px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+
+    padding: 40px 24px;
+
+    text-align: center;
+
+    color: #888;
+
+    font-size: 13px;
+}
+
+/* =========================
+   MOBILE
+========================= */
 
 @media (max-width: 800px) {
 
@@ -433,37 +841,68 @@ footer {
     }
 
     .hero {
+
         flex-direction: column;
+
         text-align: center;
+
         padding-top: 50px;
     }
 
     .hero p {
+
         margin-left: auto;
+
         margin-right: auto;
     }
 
     .buttons {
+
         justify-content: center;
     }
 
     .hero-card {
+
         margin-top: 70px;
+
         transform: scale(0.85);
     }
 
     .feature-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+    .user-grid {
+
         grid-template-columns: 1fr;
     }
 
     .section-title h2 {
+
         font-size: 38px;
+    }
+
+    .app-heading h1 {
+
+        font-size: 38px;
+    }
+
+    .profile-card {
+
+        padding: 25px;
     }
 }
 </style>
 </head>
 
 <body>
+
+<!-- =========================
+     LANDING PAGE
+========================= -->
+
+<div id="landingPage">
 
 <nav>
 
@@ -481,7 +920,10 @@ footer {
             How it works
         </a>
 
-        <a class="login-btn" onclick="openAuth('login')">
+        <a
+            class="login-btn"
+            onclick="openAuth('login')"
+        >
             Log in
         </a>
 
@@ -504,18 +946,24 @@ footer {
         </h1>
 
         <p>
-            Discover interesting people from around the world
-            and exchange thoughtful letters — without the noise
-            of ordinary social media.
+            Discover interesting people from around
+            the world and exchange thoughtful letters —
+            without the noise of ordinary social media.
         </p>
 
         <div class="buttons">
 
-            <button class="primary" onclick="openAuth('login')">
+            <button
+                class="primary"
+                onclick="openAuth('login')"
+            >
                 Find a Pen Pal →
             </button>
 
-            <button class="secondary" onclick="openAuth('signup')">
+            <button
+                class="secondary"
+                onclick="openAuth('signup')"
+            >
                 Create Your Profile
             </button>
 
@@ -579,7 +1027,10 @@ footer {
 </section>
 
 
-<section class="features" id="features">
+<section
+    class="features"
+    id="features"
+>
 
     <div class="features-inner">
 
@@ -597,6 +1048,7 @@ footer {
             </p>
 
         </div>
+
 
         <div class="feature-grid">
 
@@ -665,22 +1117,220 @@ footer {
     © 2026 Letterly · Made for curious people.
 </footer>
 
+</div>
 
-<!-- AUTH MODAL -->
 
-<div class="modal" id="authModal">
+<!-- =========================
+     APP PAGE
+========================= -->
+
+<div id="appPage">
+
+    <div class="app-nav">
+
+        <div class="app-nav-left">
+
+            <div class="app-nav-logo">
+                Letterly.
+            </div>
+
+            <div class="app-nav-link">
+                Discover
+            </div>
+
+        </div>
+
+        <div class="app-nav-right">
+
+            <div
+                class="profile-mini"
+                id="miniAvatar"
+            >
+                ?
+            </div>
+
+            <button
+                class="logout-btn"
+                onclick="logout()"
+            >
+                Log out
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="app-content">
+
+        <!-- PROFILE CREATION -->
+
+        <div
+            id="profileCreation"
+            class="profile-card"
+        >
+
+            <h2>
+                Tell the world about you.
+            </h2>
+
+            <div class="subtitle">
+
+                Create your Letterly profile.
+                This is how other people will
+                discover you.
+
+            </div>
+
+
+            <form id="profileForm">
+
+                <div class="form-group">
+
+                    <label>
+                        Username
+                    </label>
+
+                    <input
+                        id="profileUsername"
+                        type="text"
+                        placeholder="alex123"
+                        maxlength="30"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Display name
+                    </label>
+
+                    <input
+                        id="profileDisplayName"
+                        type="text"
+                        placeholder="Alex"
+                        maxlength="50"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Country
+                    </label>
+
+                    <input
+                        id="profileCountry"
+                        type="text"
+                        placeholder="United Kingdom"
+                        maxlength="60"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        About you
+                    </label>
+
+                    <textarea
+                        id="profileBio"
+                        placeholder="Tell people a little about yourself..."
+                        maxlength="500"
+                    ></textarea>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="profile-submit"
+                    id="profileSubmit"
+                >
+                    Create my profile →
+                </button>
+
+            </form>
+
+
+            <div
+                class="message"
+                id="profileMessage"
+            ></div>
+
+        </div>
+
+
+        <!-- DISCOVER -->
+
+        <div
+            id="discoverPage"
+            class="discover-page"
+        >
+
+            <div class="app-heading">
+
+                <h1>
+                    Discover people.
+                </h1>
+
+                <p>
+                    Find someone you'd actually
+                    like to write to.
+                </p>
+
+            </div>
+
+
+            <div
+                class="user-grid"
+                id="userGrid"
+            ></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     AUTH MODAL
+========================= -->
+
+<div
+    class="modal"
+    id="authModal"
+>
 
     <div class="modal-box">
 
-        <button class="close" onclick="closeAuth()">
+        <button
+            class="close"
+            onclick="closeAuth()"
+        >
             ×
         </button>
+
 
         <h2 id="authTitle">
             Welcome back
         </h2>
 
-        <div class="modal-subtitle" id="authSubtitle">
+
+        <div
+            class="modal-subtitle"
+            id="authSubtitle"
+        >
             Log in to continue your journey.
         </div>
 
@@ -731,7 +1381,10 @@ footer {
         </form>
 
 
-        <div class="message" id="authMessage"></div>
+        <div
+            class="message"
+            id="authMessage"
+        ></div>
 
 
         <div class="switch">
@@ -757,8 +1410,8 @@ footer {
 <script>
 
 /* =====================================================
-   SUPABASE CONFIG
-   ===================================================== */
+   SUPABASE
+===================================================== */
 
 const SUPABASE_URL =
     "https://rqhnnmgamzzqspbqtnsc.supabase.co";
@@ -775,11 +1428,17 @@ const supabaseClient =
 
 
 /* =====================================================
-   AUTH UI
-   ===================================================== */
+   GLOBAL
+===================================================== */
 
 let authMode = "login";
 
+let currentUser = null;
+
+
+/* =====================================================
+   AUTH UI
+===================================================== */
 
 function openAuth(mode) {
 
@@ -791,7 +1450,7 @@ function openAuth(mode) {
 
     updateAuthUI();
 
-    clearMessage();
+    clearAuthMessage();
 }
 
 
@@ -806,19 +1465,14 @@ function closeAuth() {
 
 function switchAuthMode() {
 
-    if (authMode === "login") {
-
-        authMode = "signup";
-
-    } else {
-
-        authMode = "login";
-
-    }
+    authMode =
+        authMode === "login"
+            ? "signup"
+            : "login";
 
     updateAuthUI();
 
-    clearMessage();
+    clearAuthMessage();
 }
 
 
@@ -880,10 +1534,10 @@ function updateAuthUI() {
 
 
 /* =====================================================
-   MESSAGE
-   ===================================================== */
+   AUTH MESSAGE
+===================================================== */
 
-function showMessage(text, type) {
+function showAuthMessage(text, type) {
 
     const box =
         document.getElementById("authMessage");
@@ -896,7 +1550,7 @@ function showMessage(text, type) {
 }
 
 
-function clearMessage() {
+function clearAuthMessage() {
 
     const box =
         document.getElementById("authMessage");
@@ -909,85 +1563,356 @@ function clearMessage() {
 
 
 /* =====================================================
+   PROFILE MESSAGE
+===================================================== */
+
+function showProfileMessage(text, type) {
+
+    const box =
+        document.getElementById("profileMessage");
+
+    box.textContent = text;
+
+    box.className =
+        "message show " + type;
+
+}
+
+
+/* =====================================================
    LOGIN / SIGNUP
-   ===================================================== */
+===================================================== */
 
 document
     .getElementById("authForm")
-    .addEventListener("submit", async function(event) {
+    .addEventListener(
+        "submit",
+        async function(event) {
 
-        event.preventDefault();
+            event.preventDefault();
 
-        clearMessage();
-
-        const email =
-            document
-                .getElementById("email")
-                .value
-                .trim();
-
-        const password =
-            document
-                .getElementById("password")
-                .value;
+            clearAuthMessage();
 
 
-        const button =
-            document.getElementById("submitButton");
-
-        button.disabled = true;
-
-        button.textContent = "Please wait...";
-
-
-        try {
-
-            if (authMode === "signup") {
-
-                const { data, error } =
-                    await supabaseClient.auth.signUp({
-                        email: email,
-                        password: password
-                    });
+            const email =
+                document
+                    .getElementById("email")
+                    .value
+                    .trim();
 
 
-                if (error) {
-                    throw error;
-                }
+            const password =
+                document
+                    .getElementById("password")
+                    .value;
 
 
-                /*
-                 * 如果 Supabase 开启了邮箱确认，
-                 * 用户需要先确认邮箱。
-                 */
+            const button =
+                document
+                    .getElementById("submitButton");
 
-                if (
-                    data.user &&
-                    data.user.identities &&
-                    data.user.identities.length === 0
-                ) {
 
-                    showMessage(
-                        "This email may already be registered.",
-                        "error"
+            button.disabled = true;
+
+            button.textContent =
+                "Please wait...";
+
+
+            try {
+
+                if (authMode === "signup") {
+
+                    const {
+                        data,
+                        error
+                    } =
+                        await supabaseClient.auth.signUp({
+                            email,
+                            password
+                        });
+
+
+                    if (error) {
+                        throw error;
+                    }
+
+
+                    showAuthMessage(
+                        "Account created. Check your email to verify your account.",
+                        "success"
                     );
 
                 } else {
 
-                    showMessage(
-                        "Account created successfully. Check your email if verification is required.",
+                    const {
+                        data,
+                        error
+                    } =
+                        await supabaseClient.auth.signInWithPassword({
+                            email,
+                            password
+                        });
+
+
+                    if (error) {
+                        throw error;
+                    }
+
+
+                    showAuthMessage(
+                        "Logged in successfully.",
                         "success"
+                    );
+
+
+                    currentUser =
+                        data.user;
+
+
+                    setTimeout(
+                        async function() {
+
+                            closeAuth();
+
+                            await openApplication();
+
+                        },
+                        500
                     );
 
                 }
 
-            } else {
+            } catch (error) {
 
-                const { data, error } =
-                    await supabaseClient.auth.signInWithPassword({
-                        email: email,
-                        password: password
-                    });
+                console.error(error);
+
+                showAuthMessage(
+                    error.message ||
+                    "Something went wrong.",
+                    "error"
+                );
+
+            } finally {
+
+                button.disabled = false;
+
+                button.textContent =
+                    authMode === "login"
+                        ? "Log in"
+                        : "Create account";
+
+            }
+
+        }
+    );
+
+
+/* =====================================================
+   OPEN APPLICATION
+===================================================== */
+
+async function openApplication() {
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient.auth.getUser();
+
+
+    if (error || !data.user) {
+
+        return;
+
+    }
+
+
+    currentUser =
+        data.user;
+
+
+    document
+        .getElementById("landingPage")
+        .style.display = "none";
+
+
+    document
+        .getElementById("appPage")
+        .style.display = "block";
+
+
+    await checkProfile();
+
+}
+
+
+/* =====================================================
+   CHECK PROFILE
+===================================================== */
+
+async function checkProfile() {
+
+    if (!currentUser) {
+        return;
+    }
+
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("profiles")
+            .select("*")
+            .eq("id", currentUser.id)
+            .maybeSingle();
+
+
+    if (error) {
+
+        console.error(error);
+
+        showProfileMessage(
+            "Could not load your profile: " +
+            error.message,
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if (!data) {
+
+        showProfileCreation();
+
+    } else {
+
+        showDiscoverPage();
+
+        loadUsers();
+
+    }
+
+}
+
+
+/* =====================================================
+   PROFILE CREATION
+===================================================== */
+
+function showProfileCreation() {
+
+    document
+        .getElementById("profileCreation")
+        .style.display = "block";
+
+
+    document
+        .getElementById("discoverPage")
+        .style.display = "none";
+
+}
+
+
+document
+    .getElementById("profileForm")
+    .addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            if (!currentUser) {
+
+                showProfileMessage(
+                    "You are not logged in.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            const username =
+                document
+                    .getElementById(
+                        "profileUsername"
+                    )
+                    .value
+                    .trim();
+
+
+            const displayName =
+                document
+                    .getElementById(
+                        "profileDisplayName"
+                    )
+                    .value
+                    .trim();
+
+
+            const country =
+                document
+                    .getElementById(
+                        "profileCountry"
+                    )
+                    .value
+                    .trim();
+
+
+            const bio =
+                document
+                    .getElementById(
+                        "profileBio"
+                    )
+                    .value
+                    .trim();
+
+
+            const button =
+                document
+                    .getElementById(
+                        "profileSubmit"
+                    );
+
+
+            button.disabled = true;
+
+            button.textContent =
+                "Creating profile...";
+
+
+            try {
+
+                const {
+                    data,
+                    error
+                } =
+                    await supabaseClient
+                        .from("profiles")
+                        .insert({
+
+                            id: currentUser.id,
+
+                            username:
+                                username,
+
+                            display_name:
+                                displayName,
+
+                            country:
+                                country,
+
+                            bio:
+                                bio
+
+                        })
+                        .select()
+                        .single();
 
 
                 if (error) {
@@ -995,58 +1920,297 @@ document
                 }
 
 
-                showMessage(
-                    "Logged in successfully!",
+                showProfileMessage(
+                    "Your profile is ready!",
                     "success"
                 );
 
 
-                setTimeout(function() {
+                setTimeout(
+                    function() {
 
-                    closeAuth();
+                        showDiscoverPage();
 
-                }, 800);
+                        loadUsers();
+
+                    },
+                    600
+                );
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                showProfileMessage(
+                    error.message ||
+                    "Could not create profile.",
+                    "error"
+                );
+
+            } finally {
+
+                button.disabled = false;
+
+                button.textContent =
+                    "Create my profile →";
 
             }
 
-        } catch (error) {
-
-            console.error(error);
-
-            showMessage(
-                error.message || "Something went wrong.",
-                "error"
-            );
-
-        } finally {
-
-            button.disabled = false;
-
-            button.textContent =
-                authMode === "login"
-                    ? "Log in"
-                    : "Create account";
-
         }
-
-    });
+    );
 
 
 /* =====================================================
-   CHECK CURRENT SESSION
-   ===================================================== */
+   DISCOVER PAGE
+===================================================== */
+
+function showDiscoverPage() {
+
+    document
+        .getElementById("profileCreation")
+        .style.display = "none";
+
+
+    document
+        .getElementById("discoverPage")
+        .style.display = "block";
+
+
+    if (currentUser) {
+
+        document
+            .getElementById("miniAvatar")
+            .textContent =
+                currentUser.email
+                    .charAt(0)
+                    .toUpperCase();
+
+    }
+
+}
+
+
+/* =====================================================
+   LOAD USERS
+===================================================== */
+
+async function loadUsers() {
+
+    const grid =
+        document.getElementById(
+            "userGrid"
+        );
+
+
+    grid.innerHTML =
+        "<p>Loading people...</p>";
+
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("profiles")
+            .select(
+                "id, username, display_name, country, bio"
+            )
+            .neq(
+                "id",
+                currentUser.id
+            )
+            .order(
+                "display_name",
+                {
+                    ascending: true
+                }
+            );
+
+
+    if (error) {
+
+        console.error(error);
+
+        grid.innerHTML =
+            "<p>Could not load people.</p>";
+
+        return;
+
+    }
+
+
+    if (!data || data.length === 0) {
+
+        grid.innerHTML = `
+
+            <div class="user-card">
+
+                <div class="user-avatar">
+                    🌎
+                </div>
+
+                <h3>
+                    You're one of the first.
+                </h3>
+
+                <p class="user-bio">
+                    There aren't any other
+                    profiles yet. Invite a friend
+                    to join Letterly.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    grid.innerHTML = "";
+
+
+    data.forEach(function(user) {
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "user-card";
+
+
+        const initial =
+            (
+                user.display_name ||
+                user.username ||
+                "?"
+            )
+                .charAt(0)
+                .toUpperCase();
+
+
+        card.innerHTML = `
+
+            <div class="user-avatar">
+                ${escapeHTML(initial)}
+            </div>
+
+            <h3>
+                ${escapeHTML(
+                    user.display_name ||
+                    user.username
+                )}
+            </h3>
+
+            <div class="user-country">
+                🌎 ${escapeHTML(
+                    user.country ||
+                    "Unknown"
+                )}
+            </div>
+
+            <div class="user-bio">
+                ${escapeHTML(
+                    user.bio ||
+                    "No bio yet."
+                )}
+            </div>
+
+            <button
+                class="secondary"
+                style="width:100%;"
+                onclick="comingSoon()"
+            >
+                View profile →
+            </button>
+
+        `;
+
+
+        grid.appendChild(card);
+
+    });
+
+}
+
+
+/* =====================================================
+   SIMPLE HTML ESCAPE
+===================================================== */
+
+function escapeHTML(value) {
+
+    return String(value)
+
+        .replaceAll("&", "&amp;")
+
+        .replaceAll("<", "&lt;")
+
+        .replaceAll(">", "&gt;")
+
+        .replaceAll('"', "&quot;")
+
+        .replaceAll("'", "&#039;");
+
+}
+
+
+/* =====================================================
+   COMING SOON
+===================================================== */
+
+function comingSoon() {
+
+    alert(
+        "Profile pages and letters are coming next."
+    );
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+async function logout() {
+
+    await supabaseClient.auth.signOut();
+
+    currentUser = null;
+
+
+    document
+        .getElementById("appPage")
+        .style.display = "none";
+
+
+    document
+        .getElementById("landingPage")
+        .style.display = "block";
+
+}
+
+
+/* =====================================================
+   CHECK SESSION ON START
+===================================================== */
 
 async function checkSession() {
 
-    const { data } =
+    const {
+        data
+    } =
         await supabaseClient.auth.getSession();
+
 
     if (data.session) {
 
-        console.log(
-            "Logged in:",
-            data.session.user.email
-        );
+        currentUser =
+            data.session.user;
+
+        await openApplication();
 
     }
 
@@ -1057,8 +2221,8 @@ checkSession();
 
 
 /* =====================================================
-   AUTH STATE LISTENER
-   ===================================================== */
+   AUTH STATE
+===================================================== */
 
 supabaseClient.auth.onAuthStateChange(
     function(event, session) {
@@ -1067,15 +2231,6 @@ supabaseClient.auth.onAuthStateChange(
             "Auth event:",
             event
         );
-
-        if (session) {
-
-            console.log(
-                "Current user:",
-                session.user.email
-            );
-
-        }
 
     }
 );
