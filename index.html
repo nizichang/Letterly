@@ -6,6 +6,8 @@
 
 <title>Letterly — Find Your Pen Pal</title>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
 * {
     margin: 0;
@@ -27,14 +29,16 @@ body {
     color: #1d1d1f;
 }
 
-/* ---------- Navigation ---------- */
+button,
+input {
+    font: inherit;
+}
 
 nav {
     height: 76px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     max-width: 1180px;
     margin: auto;
     padding: 0 24px;
@@ -56,6 +60,7 @@ nav {
     text-decoration: none;
     color: #555;
     font-size: 14px;
+    cursor: pointer;
 }
 
 .nav-links a:hover {
@@ -69,18 +74,15 @@ nav {
     background: white;
 }
 
-/* ---------- Hero ---------- */
+/* HERO */
 
 .hero {
     max-width: 1180px;
     margin: auto;
-
     min-height: 650px;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     padding: 70px 24px;
 }
 
@@ -90,16 +92,12 @@ nav {
 
 .badge {
     display: inline-block;
-
     background: #fff;
     border: 1px solid #e6e2da;
-
     padding: 9px 15px;
     border-radius: 999px;
-
     font-size: 13px;
     color: #666;
-
     margin-bottom: 28px;
 }
 
@@ -107,7 +105,6 @@ nav {
     font-size: clamp(52px, 7vw, 86px);
     line-height: 0.98;
     letter-spacing: -4px;
-
     margin-bottom: 28px;
 }
 
@@ -119,13 +116,9 @@ nav {
     font-size: 19px;
     line-height: 1.6;
     color: #666;
-
     max-width: 520px;
-
     margin-bottom: 36px;
 }
-
-/* ---------- Buttons ---------- */
 
 .buttons {
     display: flex;
@@ -133,20 +126,19 @@ nav {
     flex-wrap: wrap;
 }
 
+.primary,
+.secondary {
+    padding: 15px 24px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
 .primary {
     background: #1d1d1f;
     color: white;
-
     border: none;
-
-    padding: 15px 24px;
-
-    border-radius: 999px;
-
-    font-size: 15px;
-    font-weight: 600;
-
-    cursor: pointer;
 }
 
 .primary:hover {
@@ -156,57 +148,37 @@ nav {
 .secondary {
     background: white;
     color: #1d1d1f;
-
     border: 1px solid #ddd;
-
-    padding: 15px 24px;
-
-    border-radius: 999px;
-
-    font-size: 15px;
-    font-weight: 600;
-
-    cursor: pointer;
 }
 
-/* ---------- Letter Card ---------- */
+/* LETTER CARD */
 
 .hero-card {
     width: 370px;
     height: 440px;
-
     position: relative;
 }
 
 .card {
     position: absolute;
-
     width: 310px;
     height: 380px;
-
     background: #fff;
-
     border-radius: 18px;
-
-    box-shadow:
-        0 30px 70px rgba(0,0,0,0.12);
-
+    box-shadow: 0 30px 70px rgba(0,0,0,0.12);
     padding: 30px;
 }
 
 .card-back {
     right: 0;
     top: 35px;
-
     transform: rotate(7deg);
-
     background: #e9e5dc;
 }
 
 .card-front {
     left: 0;
     top: 0;
-
     transform: rotate(-4deg);
 }
 
@@ -214,22 +186,17 @@ nav {
     display: flex;
     align-items: center;
     gap: 14px;
-
     margin-bottom: 30px;
 }
 
 .avatar {
     width: 48px;
     height: 48px;
-
     border-radius: 50%;
-
     background: #ddd;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     font-size: 20px;
 }
 
@@ -240,7 +207,6 @@ nav {
 .country {
     font-size: 13px;
     color: #777;
-
     margin-top: 4px;
 }
 
@@ -258,36 +224,28 @@ nav {
 .line {
     height: 1px;
     background: #eee;
-
     margin: 25px 0;
 }
 
 .stamp {
     position: absolute;
-
     right: 25px;
     bottom: 25px;
-
     width: 55px;
     height: 55px;
-
     border: 2px solid #bbb;
-
     border-radius: 50%;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     font-size: 11px;
     color: #777;
 }
 
-/* ---------- Features ---------- */
+/* FEATURES */
 
 .features {
     background: #fff;
-
     padding: 90px 24px;
 }
 
@@ -315,20 +273,14 @@ nav {
 
 .feature-grid {
     display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
 }
 
 .feature {
     border: 1px solid #eee;
-
     border-radius: 18px;
-
     padding: 30px;
-
     background: #fafafa;
 }
 
@@ -347,19 +299,132 @@ nav {
     font-size: 14px;
 }
 
-/* ---------- Footer ---------- */
+/* MODAL */
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(5px);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-box {
+    width: 100%;
+    max-width: 420px;
+    background: white;
+    border-radius: 24px;
+    padding: 34px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.2);
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    border: none;
+    background: transparent;
+    font-size: 24px;
+    cursor: pointer;
+    color: #777;
+}
+
+.modal-box h2 {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.modal-subtitle {
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    outline: none;
+}
+
+.form-group input:focus {
+    border-color: #999;
+}
+
+.form-submit {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 999px;
+    background: #1d1d1f;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.switch {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 14px;
+    color: #777;
+}
+
+.switch span {
+    color: #111;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.message {
+    margin-top: 15px;
+    padding: 11px 13px;
+    border-radius: 10px;
+    font-size: 13px;
+    display: none;
+}
+
+.message.show {
+    display: block;
+}
+
+.message.error {
+    background: #fff0f0;
+    color: #b42318;
+}
+
+.message.success {
+    background: #effaf1;
+    color: #217a36;
+}
 
 footer {
     padding: 40px 24px;
-
     text-align: center;
-
     color: #888;
-
     font-size: 13px;
 }
-
-/* ---------- Mobile ---------- */
 
 @media (max-width: 800px) {
 
@@ -369,9 +434,7 @@ footer {
 
     .hero {
         flex-direction: column;
-
         text-align: center;
-
         padding-top: 50px;
     }
 
@@ -386,7 +449,6 @@ footer {
 
     .hero-card {
         margin-top: 70px;
-
         transform: scale(0.85);
     }
 
@@ -403,8 +465,6 @@ footer {
 
 <body>
 
-<!-- Navigation -->
-
 <nav>
 
     <div class="logo">
@@ -413,15 +473,15 @@ footer {
 
     <div class="nav-links">
 
-        <a href="#">
+        <a onclick="openAuth('login')">
             Find Pen Pals
         </a>
 
-        <a href="#">
+        <a href="#features">
             How it works
         </a>
 
-        <a href="#" class="login-btn">
+        <a class="login-btn" onclick="openAuth('login')">
             Log in
         </a>
 
@@ -429,8 +489,6 @@ footer {
 
 </nav>
 
-
-<!-- Hero -->
 
 <section class="hero">
 
@@ -453,13 +511,11 @@ footer {
 
         <div class="buttons">
 
-            <button class="primary"
-                onclick="alert('Pen Pal discovery is coming soon.')">
+            <button class="primary" onclick="openAuth('login')">
                 Find a Pen Pal →
             </button>
 
-            <button class="secondary"
-                onclick="alert('Profile creation is coming soon.')">
+            <button class="secondary" onclick="openAuth('signup')">
                 Create Your Profile
             </button>
 
@@ -467,8 +523,6 @@ footer {
 
     </div>
 
-
-    <!-- Letter Illustration -->
 
     <div class="hero-card">
 
@@ -495,7 +549,6 @@ footer {
                 </div>
 
             </div>
-
 
             <h3>
                 A little letter
@@ -526,9 +579,7 @@ footer {
 </section>
 
 
-<!-- Features -->
-
-<section class="features">
+<section class="features" id="features">
 
     <div class="features-inner">
 
@@ -546,7 +597,6 @@ footer {
             </p>
 
         </div>
-
 
         <div class="feature-grid">
 
@@ -612,11 +662,425 @@ footer {
 
 
 <footer>
-
     © 2026 Letterly · Made for curious people.
-
 </footer>
 
+
+<!-- AUTH MODAL -->
+
+<div class="modal" id="authModal">
+
+    <div class="modal-box">
+
+        <button class="close" onclick="closeAuth()">
+            ×
+        </button>
+
+        <h2 id="authTitle">
+            Welcome back
+        </h2>
+
+        <div class="modal-subtitle" id="authSubtitle">
+            Log in to continue your journey.
+        </div>
+
+
+        <form id="authForm">
+
+            <div class="form-group">
+
+                <label>
+                    Email
+                </label>
+
+                <input
+                    id="email"
+                    type="email"
+                    placeholder="you@example.com"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Password
+                </label>
+
+                <input
+                    id="password"
+                    type="password"
+                    placeholder="At least 6 characters"
+                    minlength="6"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                class="form-submit"
+                type="submit"
+                id="submitButton"
+            >
+                Log in
+            </button>
+
+        </form>
+
+
+        <div class="message" id="authMessage"></div>
+
+
+        <div class="switch">
+
+            <span id="switchText">
+                Don't have an account?
+            </span>
+
+            <span
+                id="switchButton"
+                onclick="switchAuthMode()"
+            >
+                Create one
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   SUPABASE CONFIG
+   ===================================================== */
+
+const SUPABASE_URL =
+    "https://rqhnnmgamzzqspbqtnsc.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_zuHHX7ZVluP76Pkxw0jZ7g_7uT_qvqr";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =====================================================
+   AUTH UI
+   ===================================================== */
+
+let authMode = "login";
+
+
+function openAuth(mode) {
+
+    authMode = mode;
+
+    document
+        .getElementById("authModal")
+        .classList.add("show");
+
+    updateAuthUI();
+
+    clearMessage();
+}
+
+
+function closeAuth() {
+
+    document
+        .getElementById("authModal")
+        .classList.remove("show");
+
+}
+
+
+function switchAuthMode() {
+
+    if (authMode === "login") {
+
+        authMode = "signup";
+
+    } else {
+
+        authMode = "login";
+
+    }
+
+    updateAuthUI();
+
+    clearMessage();
+}
+
+
+function updateAuthUI() {
+
+    const title =
+        document.getElementById("authTitle");
+
+    const subtitle =
+        document.getElementById("authSubtitle");
+
+    const button =
+        document.getElementById("submitButton");
+
+    const switchText =
+        document.getElementById("switchText");
+
+    const switchButton =
+        document.getElementById("switchButton");
+
+
+    if (authMode === "login") {
+
+        title.textContent =
+            "Welcome back";
+
+        subtitle.textContent =
+            "Log in to continue your journey.";
+
+        button.textContent =
+            "Log in";
+
+        switchText.textContent =
+            "Don't have an account?";
+
+        switchButton.textContent =
+            "Create one";
+
+    } else {
+
+        title.textContent =
+            "Create your account";
+
+        subtitle.textContent =
+            "Start your pen pal journey.";
+
+        button.textContent =
+            "Create account";
+
+        switchText.textContent =
+            "Already have an account?";
+
+        switchButton.textContent =
+            "Log in";
+
+    }
+
+}
+
+
+/* =====================================================
+   MESSAGE
+   ===================================================== */
+
+function showMessage(text, type) {
+
+    const box =
+        document.getElementById("authMessage");
+
+    box.textContent = text;
+
+    box.className =
+        "message show " + type;
+
+}
+
+
+function clearMessage() {
+
+    const box =
+        document.getElementById("authMessage");
+
+    box.textContent = "";
+
+    box.className = "message";
+
+}
+
+
+/* =====================================================
+   LOGIN / SIGNUP
+   ===================================================== */
+
+document
+    .getElementById("authForm")
+    .addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        clearMessage();
+
+        const email =
+            document
+                .getElementById("email")
+                .value
+                .trim();
+
+        const password =
+            document
+                .getElementById("password")
+                .value;
+
+
+        const button =
+            document.getElementById("submitButton");
+
+        button.disabled = true;
+
+        button.textContent = "Please wait...";
+
+
+        try {
+
+            if (authMode === "signup") {
+
+                const { data, error } =
+                    await supabaseClient.auth.signUp({
+                        email: email,
+                        password: password
+                    });
+
+
+                if (error) {
+                    throw error;
+                }
+
+
+                /*
+                 * 如果 Supabase 开启了邮箱确认，
+                 * 用户需要先确认邮箱。
+                 */
+
+                if (
+                    data.user &&
+                    data.user.identities &&
+                    data.user.identities.length === 0
+                ) {
+
+                    showMessage(
+                        "This email may already be registered.",
+                        "error"
+                    );
+
+                } else {
+
+                    showMessage(
+                        "Account created successfully. Check your email if verification is required.",
+                        "success"
+                    );
+
+                }
+
+            } else {
+
+                const { data, error } =
+                    await supabaseClient.auth.signInWithPassword({
+                        email: email,
+                        password: password
+                    });
+
+
+                if (error) {
+                    throw error;
+                }
+
+
+                showMessage(
+                    "Logged in successfully!",
+                    "success"
+                );
+
+
+                setTimeout(function() {
+
+                    closeAuth();
+
+                }, 800);
+
+            }
+
+        } catch (error) {
+
+            console.error(error);
+
+            showMessage(
+                error.message || "Something went wrong.",
+                "error"
+            );
+
+        } finally {
+
+            button.disabled = false;
+
+            button.textContent =
+                authMode === "login"
+                    ? "Log in"
+                    : "Create account";
+
+        }
+
+    });
+
+
+/* =====================================================
+   CHECK CURRENT SESSION
+   ===================================================== */
+
+async function checkSession() {
+
+    const { data } =
+        await supabaseClient.auth.getSession();
+
+    if (data.session) {
+
+        console.log(
+            "Logged in:",
+            data.session.user.email
+        );
+
+    }
+
+}
+
+
+checkSession();
+
+
+/* =====================================================
+   AUTH STATE LISTENER
+   ===================================================== */
+
+supabaseClient.auth.onAuthStateChange(
+    function(event, session) {
+
+        console.log(
+            "Auth event:",
+            event
+        );
+
+        if (session) {
+
+            console.log(
+                "Current user:",
+                session.user.email
+            );
+
+        }
+
+    }
+);
+
+</script>
 
 </body>
 </html>
