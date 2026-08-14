@@ -1,1 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Letterly — Find Your Pen Pal</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+    background: #f7f5f0;
+    color: #1d1d1f;
+}
+
+/* ---------- Navigation ---------- */
+
+nav {
+    height: 76px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    max-width: 1180px;
+    margin: auto;
+    padding: 0 24px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.7px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #555;
+    font-size: 14px;
+}
+
+.nav-links a:hover {
+    color: #111;
+}
+
+.login-btn {
+    border: 1px solid #ddd;
+    padding: 10px 17px;
+    border-radius: 999px;
+    background: white;
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+    max-width: 1180px;
+    margin: auto;
+
+    min-height: 650px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 70px 24px;
+}
+
+.hero-text {
+    max-width: 610px;
+}
+
+.badge {
+    display: inline-block;
+
+    background: #fff;
+    border: 1px solid #e6e2da;
+
+    padding: 9px 15px;
+    border-radius: 999px;
+
+    font-size: 13px;
+    color: #666;
+
+    margin-bottom: 28px;
+}
+
+.hero h1 {
+    font-size: clamp(52px, 7vw, 86px);
+    line-height: 0.98;
+    letter-spacing: -4px;
+
+    margin-bottom: 28px;
+}
+
+.hero h1 span {
+    color: #777;
+}
+
+.hero p {
+    font-size: 19px;
+    line-height: 1.6;
+    color: #666;
+
+    max-width: 520px;
+
+    margin-bottom: 36px;
+}
+
+/* ---------- Buttons ---------- */
+
+.buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.primary {
+    background: #1d1d1f;
+    color: white;
+
+    border: none;
+
+    padding: 15px 24px;
+
+    border-radius: 999px;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.primary:hover {
+    transform: translateY(-1px);
+}
+
+.secondary {
+    background: white;
+    color: #1d1d1f;
+
+    border: 1px solid #ddd;
+
+    padding: 15px 24px;
+
+    border-radius: 999px;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+/* ---------- Letter Card ---------- */
+
+.hero-card {
+    width: 370px;
+    height: 440px;
+
+    position: relative;
+}
+
+.card {
+    position: absolute;
+
+    width: 310px;
+    height: 380px;
+
+    background: #fff;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 30px 70px rgba(0,0,0,0.12);
+
+    padding: 30px;
+}
+
+.card-back {
+    right: 0;
+    top: 35px;
+
+    transform: rotate(7deg);
+
+    background: #e9e5dc;
+}
+
+.card-front {
+    left: 0;
+    top: 0;
+
+    transform: rotate(-4deg);
+}
+
+.card-top {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    margin-bottom: 30px;
+}
+
+.avatar {
+    width: 48px;
+    height: 48px;
+
+    border-radius: 50%;
+
+    background: #ddd;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 20px;
+}
+
+.name {
+    font-weight: 700;
+}
+
+.country {
+    font-size: 13px;
+    color: #777;
+
+    margin-top: 4px;
+}
+
+.card h3 {
+    font-size: 27px;
+    margin-bottom: 18px;
+}
+
+.card p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #666;
+}
+
+.line {
+    height: 1px;
+    background: #eee;
+
+    margin: 25px 0;
+}
+
+.stamp {
+    position: absolute;
+
+    right: 25px;
+    bottom: 25px;
+
+    width: 55px;
+    height: 55px;
+
+    border: 2px solid #bbb;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 11px;
+    color: #777;
+}
+
+/* ---------- Features ---------- */
+
+.features {
+    background: #fff;
+
+    padding: 90px 24px;
+}
+
+.features-inner {
+    max-width: 1180px;
+    margin: auto;
+}
+
+.section-title {
+    max-width: 650px;
+    margin-bottom: 55px;
+}
+
+.section-title h2 {
+    font-size: 48px;
+    letter-spacing: -2px;
+    margin-bottom: 15px;
+}
+
+.section-title p {
+    color: #777;
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+.feature-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 20px;
+}
+
+.feature {
+    border: 1px solid #eee;
+
+    border-radius: 18px;
+
+    padding: 30px;
+
+    background: #fafafa;
+}
+
+.feature-icon {
+    font-size: 30px;
+    margin-bottom: 25px;
+}
+
+.feature h3 {
+    margin-bottom: 10px;
+}
+
+.feature p {
+    color: #777;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+/* ---------- Footer ---------- */
+
+footer {
+    padding: 40px 24px;
+
+    text-align: center;
+
+    color: #888;
+
+    font-size: 13px;
+}
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 800px) {
+
+    .nav-links {
+        display: none;
+    }
+
+    .hero {
+        flex-direction: column;
+
+        text-align: center;
+
+        padding-top: 50px;
+    }
+
+    .hero p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .buttons {
+        justify-content: center;
+    }
+
+    .hero-card {
+        margin-top: 70px;
+
+        transform: scale(0.85);
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-title h2 {
+        font-size: 38px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Navigation -->
+
+<nav>
+
+    <div class="logo">
+        Letterly.
+    </div>
+
+    <div class="nav-links">
+
+        <a href="#">
+            Find Pen Pals
+        </a>
+
+        <a href="#">
+            How it works
+        </a>
+
+        <a href="#" class="login-btn">
+            Log in
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- Hero -->
+
+<section class="hero">
+
+    <div class="hero-text">
+
+        <div class="badge">
+            🌎 Meet people beyond your world
+        </div>
+
+        <h1>
+            Write a letter.<br>
+            <span>Meet someone.</span>
+        </h1>
+
+        <p>
+            Discover interesting people from around the world
+            and exchange thoughtful letters — without the noise
+            of ordinary social media.
+        </p>
+
+        <div class="buttons">
+
+            <button class="primary"
+                onclick="alert('Pen Pal discovery is coming soon.')">
+                Find a Pen Pal →
+            </button>
+
+            <button class="secondary"
+                onclick="alert('Profile creation is coming soon.')">
+                Create Your Profile
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- Letter Illustration -->
+
+    <div class="hero-card">
+
+        <div class="card card-back"></div>
+
+        <div class="card card-front">
+
+            <div class="card-top">
+
+                <div class="avatar">
+                    🌎
+                </div>
+
+                <div>
+
+                    <div class="name">
+                        Sofia
+                    </div>
+
+                    <div class="country">
+                        🇪🇸 Spain
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <h3>
+                A little letter
+            </h3>
+
+            <p>
+                Hi! I'm Sofia. I love languages,
+                photography and discovering new
+                cultures.
+            </p>
+
+            <div class="line"></div>
+
+            <p>
+                I'm looking for someone who enjoys
+                sharing stories about everyday life
+                in different countries.
+            </p>
+
+            <div class="stamp">
+                ✉
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- Features -->
+
+<section class="features">
+
+    <div class="features-inner">
+
+        <div class="section-title">
+
+            <h2>
+                Less scrolling.<br>
+                More connection.
+            </h2>
+
+            <p>
+                Letterly is built around people,
+                stories and meaningful conversations —
+                not endless feeds.
+            </p>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🌎
+                </div>
+
+                <h3>
+                    Meet the world
+                </h3>
+
+                <p>
+                    Discover people from different
+                    countries, cultures and backgrounds.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    ✉️
+                </div>
+
+                <h3>
+                    Write a real letter
+                </h3>
+
+                <p>
+                    Take your time. Write something
+                    meaningful instead of sending
+                    another "hey".
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🔒
+                </div>
+
+                <h3>
+                    Keep your email private
+                </h3>
+
+                <p>
+                    Your contact information stays
+                    hidden until you decide to share it.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    © 2026 Letterly · Made for curious people.
+
+</footer>
+
+
+</body>
+</html>
