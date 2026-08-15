@@ -412,6 +412,10 @@ nav {
         0 30px 80px rgba(0,0,0,0.2);
 
     position: relative;
+
+    max-height: 88vh;
+
+    overflow-y: auto;
 }
 
 .close {
@@ -505,6 +509,13 @@ nav {
     font-weight: 600;
 
     margin-top: 5px;
+}
+
+.form-submit:disabled {
+
+    opacity: 0.5;
+
+    cursor: not-allowed;
 }
 
 .switch {
@@ -613,6 +624,13 @@ nav {
     color: #777;
 
     font-size: 14px;
+}
+
+.app-nav-link.active {
+
+    color: #111;
+
+    font-weight: 600;
 }
 
 .app-nav-right {
@@ -965,6 +983,274 @@ nav {
 }
 
 /* =========================
+   INBOX / LETTERS
+========================= */
+
+.inbox-tabs {
+
+    display: flex;
+    gap: 10px;
+
+    margin-bottom: 25px;
+}
+
+.inbox-tab {
+
+    padding: 10px 18px;
+
+    border-radius: 999px;
+
+    border: 1px solid #ddd;
+
+    background: white;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    color: #777;
+}
+
+.inbox-tab.active {
+
+    background: #1d1d1f;
+
+    color: white;
+
+    border-color: #1d1d1f;
+}
+
+.letter-limit-note {
+
+    color: #999;
+
+    font-size: 13px;
+
+    margin-bottom: 22px;
+}
+
+.letter-row {
+
+    background: white;
+
+    border: 1px solid #eee;
+
+    border-radius: 14px;
+
+    padding: 18px 20px;
+
+    margin-bottom: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    cursor: pointer;
+
+    transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.letter-row:hover {
+
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+
+    border-color: #e2e2e2;
+}
+
+.letter-row.unread {
+
+    border-color: #d8d3c6;
+
+    background: #fdfcf9;
+}
+
+.letter-row-avatar {
+
+    width: 44px;
+    height: 44px;
+
+    border-radius: 50%;
+
+    background: #e6e2da;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 700;
+
+    flex-shrink: 0;
+
+    overflow: hidden;
+}
+
+.letter-row-avatar img {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.letter-row-body {
+
+    flex-grow: 1;
+
+    min-width: 0;
+}
+
+.letter-row-top {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-bottom: 4px;
+}
+
+.letter-row-name {
+
+    font-weight: 700;
+
+    font-size: 14.5px;
+}
+
+.letter-row-date {
+
+    color: #999;
+
+    font-size: 12.5px;
+
+    white-space: nowrap;
+}
+
+.letter-row-subject {
+
+    font-size: 14px;
+
+    color: #444;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+.unread-dot {
+
+    width: 9px;
+    height: 9px;
+
+    border-radius: 50%;
+
+    background: #d0392b;
+
+    flex-shrink: 0;
+}
+
+.letter-empty {
+
+    color: #999;
+
+    padding: 40px 0;
+
+    text-align: center;
+}
+
+.nav-badge {
+
+    display: none;
+
+    position: absolute;
+
+    top: -8px;
+
+    right: -16px;
+
+    background: #d0392b;
+
+    color: white;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    padding: 2px 6px;
+
+    border-radius: 999px;
+
+    min-width: 17px;
+
+    text-align: center;
+}
+
+#readLetterModal .modal-box {
+
+    max-width: 560px;
+
+    padding: 40px;
+}
+
+.read-letter-meta {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 22px;
+
+    padding-bottom: 18px;
+
+    border-bottom: 1px solid #eee;
+}
+
+.read-letter-avatar {
+
+    width: 46px;
+    height: 46px;
+
+    border-radius: 50%;
+
+    background: #e6e2da;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 700;
+
+    overflow: hidden;
+
+    flex-shrink: 0;
+}
+
+.read-letter-avatar img {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.read-letter-date {
+
+    color: #999;
+
+    font-size: 12.5px;
+
+    margin-top: 2px;
+}
+
+/* =========================
    FOOTER
 ========================= */
 
@@ -1045,6 +1331,16 @@ footer {
     #viewProfileModal .modal-box {
 
         padding: 28px;
+    }
+
+    .app-nav-left {
+
+        gap: 18px;
+    }
+
+    .letter-row-subject {
+
+        max-width: 140px;
     }
 }
 </style>
@@ -1288,8 +1584,13 @@ footer {
                 Letterly.
             </div>
 
-            <div class="app-nav-link">
+            <div class="app-nav-link active" id="navDiscover" onclick="showDiscoverPage()" style="cursor:pointer;">
                 Discover
+            </div>
+
+            <div class="app-nav-link" id="navInbox" onclick="showInboxPage()" style="cursor:pointer; position:relative;">
+                Inbox
+                <span class="nav-badge" id="unreadBadge"></span>
             </div>
 
         </div>
@@ -1481,6 +1782,42 @@ footer {
 
         </div>
 
+
+        <!-- INBOX -->
+
+        <div
+            id="inboxPage"
+            class="discover-page"
+        >
+
+            <div class="app-heading">
+
+                <h1>
+                    Your letters.
+                </h1>
+
+                <p id="letterLimitNote" class="letter-limit-note">
+                    You can send up to 3 letters a day.
+                </p>
+
+            </div>
+
+            <div class="inbox-tabs">
+
+                <button class="inbox-tab active" id="tabReceived" onclick="switchInboxTab('received')">
+                    Received
+                </button>
+
+                <button class="inbox-tab" id="tabSent" onclick="switchInboxTab('sent')">
+                    Sent
+                </button>
+
+            </div>
+
+            <div id="letterList"></div>
+
+        </div>
+
     </div>
 
 </div>
@@ -1637,10 +1974,112 @@ footer {
 
         <button
             class="form-submit"
-            onclick="comingSoon()"
+            id="vpSendLetterBtn"
+            onclick="openComposeFromProfile()"
         >
             Send a letter →
         </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     COMPOSE (WRITE LETTER) MODAL
+========================= -->
+
+<div
+    class="modal"
+    id="composeModal"
+>
+
+    <div class="modal-box">
+
+        <button
+            class="close"
+            onclick="closeCompose()"
+        >
+            ×
+        </button>
+
+        <h2>Write a letter</h2>
+
+        <div class="modal-subtitle" id="composeToName"></div>
+
+        <form id="composeForm">
+
+            <div class="form-group">
+                <label>Subject</label>
+                <input
+                    id="composeSubject"
+                    type="text"
+                    placeholder="Give your letter a title"
+                    maxlength="100"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Your letter</label>
+                <textarea
+                    id="composeContent"
+                    placeholder="Write what's on your mind..."
+                    maxlength="3000"
+                    style="min-height: 180px;"
+                    required
+                ></textarea>
+            </div>
+
+            <button
+                type="submit"
+                class="form-submit"
+                id="composeSubmit"
+            >
+                Send letter →
+            </button>
+
+        </form>
+
+        <div class="message" id="composeMessage"></div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     READ LETTER MODAL
+========================= -->
+
+<div
+    class="modal"
+    id="readLetterModal"
+>
+
+    <div class="modal-box">
+
+        <button
+            class="close"
+            onclick="closeReadLetter()"
+        >
+            ×
+        </button>
+
+        <div class="read-letter-meta">
+
+            <div class="read-letter-avatar" id="readLetterAvatar"></div>
+
+            <div>
+                <div class="vp-name" id="readLetterFrom" style="font-size:17px;"></div>
+                <div class="read-letter-date" id="readLetterDate"></div>
+            </div>
+
+        </div>
+
+        <h2 id="readLetterSubject" style="font-size:24px; margin-bottom:16px;"></h2>
+
+        <p class="vp-text" id="readLetterContent" style="white-space: pre-wrap;"></p>
 
     </div>
 
@@ -1674,6 +2113,20 @@ const supabaseClient =
 let authMode = "login";
 
 let currentUser = null;
+
+let currentUserProfile = null;
+
+// cache of profiles (id -> {display_name, username, avatar_url}) so letter
+// lists can show sender/receiver names without a query per row
+const profileCache = {};
+
+const DAILY_LETTER_LIMIT = 3;
+
+let composeReceiverId = null;
+
+let composeReceiverName = null;
+
+let currentInboxTab = "received";
 
 
 /* =====================================================
@@ -1877,10 +2330,29 @@ document
                     }
 
 
-                    showAuthMessage(
-                        "Account created. Check your email to verify your account.",
-                        "success"
-                    );
+                    // Supabase returns success even for an email that is
+                    // already registered (to avoid leaking which emails
+                    // exist). An empty identities array means this email
+                    // already has an account.
+                    if (
+                        data.user &&
+                        data.user.identities &&
+                        data.user.identities.length === 0
+                    ) {
+
+                        showAuthMessage(
+                            "This email is already registered. Please log in instead.",
+                            "error"
+                        );
+
+                    } else {
+
+                        showAuthMessage(
+                            "Account created. Check your email to verify your account.",
+                            "success"
+                        );
+
+                    }
 
                 } else {
 
@@ -2029,9 +2501,13 @@ async function checkProfile() {
 
     } else {
 
+        currentUserProfile = data;
+
         showDiscoverPage();
 
         loadUsers();
+
+        refreshUnreadBadge();
 
     }
 
@@ -2051,6 +2527,11 @@ function showProfileCreation() {
 
     document
         .getElementById("discoverPage")
+        .style.display = "none";
+
+
+    document
+        .getElementById("inboxPage")
         .style.display = "none";
 
 }
@@ -2239,6 +2720,9 @@ document
                 }
 
 
+                currentUserProfile = data;
+
+
                 showProfileMessage(
                     "Your profile is ready!",
                     "success"
@@ -2281,6 +2765,21 @@ document
 
 
 /* =====================================================
+   NAV HELPERS
+===================================================== */
+
+function setActiveNav(page) {
+
+    document.getElementById("navDiscover")
+        .classList.toggle("active", page === "discover");
+
+    document.getElementById("navInbox")
+        .classList.toggle("active", page === "inbox");
+
+}
+
+
+/* =====================================================
    DISCOVER PAGE
 ===================================================== */
 
@@ -2319,6 +2818,14 @@ function showDiscoverPage() {
     document
         .getElementById("discoverPage")
         .style.display = "block";
+
+
+    document
+        .getElementById("inboxPage")
+        .style.display = "none";
+
+
+    setActiveNav("discover");
 
 
     if (currentUser) {
@@ -2413,6 +2920,14 @@ async function loadUsers() {
 
     data.forEach(function(user) {
 
+        // cache for later use in letter lists / compose
+        profileCache[user.id] = {
+            display_name: user.display_name,
+            username: user.username,
+            avatar_url: user.avatar_url
+        };
+
+
         const card =
             document.createElement("div");
 
@@ -2477,8 +2992,13 @@ onerror="this.style.display='none';">` : escapeHTML(initial)}
 
 
 /* =====================================================
-   VIEW PROFILE (查看简介)
+   VIEW PROFILE
 ===================================================== */
+
+let viewedProfileId = null;
+
+let viewedProfileName = null;
+
 
 async function viewProfile(id) {
 
@@ -2487,7 +3007,6 @@ async function viewProfile(id) {
 
     modal.classList.add("show");
 
-    // loading 状态
     document.getElementById("vpName").textContent = "Loading...";
     document.getElementById("vpCountry").textContent = "";
     document.getElementById("vpAge").textContent = "";
@@ -2525,6 +3044,11 @@ async function viewProfile(id) {
         data.display_name ||
         data.username ||
         "Unknown";
+
+
+    viewedProfileId = id;
+
+    viewedProfileName = name;
 
 
     document.getElementById("vpName").textContent = name;
@@ -2579,6 +3103,546 @@ function closeViewProfile() {
 
 
 /* =====================================================
+   COMPOSE — open / close
+===================================================== */
+
+function openComposeFromProfile() {
+
+    if (!viewedProfileId) {
+        return;
+    }
+
+    closeViewProfile();
+
+    openCompose(viewedProfileId, viewedProfileName);
+
+}
+
+
+function openCompose(receiverId, receiverName) {
+
+    composeReceiverId = receiverId;
+
+    composeReceiverName = receiverName;
+
+    document.getElementById("composeToName").textContent =
+        "Writing to " + receiverName;
+
+    document.getElementById("composeSubject").value = "";
+
+    document.getElementById("composeContent").value = "";
+
+    const msgBox = document.getElementById("composeMessage");
+
+    msgBox.textContent = "";
+
+    msgBox.className = "message";
+
+
+    document
+        .getElementById("composeModal")
+        .classList.add("show");
+
+}
+
+
+function closeCompose() {
+
+    document
+        .getElementById("composeModal")
+        .classList.remove("show");
+
+}
+
+
+function showComposeMessage(text, type) {
+
+    const box =
+        document.getElementById("composeMessage");
+
+    box.textContent = text;
+
+    box.className =
+        "message show " + type;
+
+}
+
+
+/* =====================================================
+   COMPOSE — send letter (with daily limit check)
+===================================================== */
+
+document
+    .getElementById("composeForm")
+    .addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            if (!currentUser || !composeReceiverId) {
+
+                showComposeMessage(
+                    "Something went wrong. Please try again.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            const subject =
+                document
+                    .getElementById("composeSubject")
+                    .value
+                    .trim();
+
+
+            const content =
+                document
+                    .getElementById("composeContent")
+                    .value
+                    .trim();
+
+
+            const button =
+                document.getElementById("composeSubmit");
+
+
+            button.disabled = true;
+
+            button.textContent = "Sending...";
+
+
+            try {
+
+                // Front-end check first, so the user gets a friendly
+                // message before we even try to insert. This is only a
+                // convenience — the database enforces the real limit.
+                const startOfToday = new Date();
+
+                startOfToday.setHours(0, 0, 0, 0);
+
+
+                const {
+                    count,
+                    error: countError
+                } =
+                    await supabaseClient
+                        .from("letters")
+                        .select("*", { count: "exact", head: true })
+                        .eq("sender_id", currentUser.id)
+                        .gte("created_at", startOfToday.toISOString());
+
+
+                if (countError) {
+                    throw countError;
+                }
+
+
+                if (count >= DAILY_LETTER_LIMIT) {
+
+                    showComposeMessage(
+                        `You've sent ${count} letters today. The daily limit is ${DAILY_LETTER_LIMIT} — try again tomorrow.`,
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                const {
+                    error
+                } =
+                    await supabaseClient
+                        .from("letters")
+                        .insert({
+
+                            sender_id: currentUser.id,
+
+                            receiver_id: composeReceiverId,
+
+                            subject: subject,
+
+                            content: content,
+
+                            is_read: false
+
+                        });
+
+
+                if (error) {
+                    throw error;
+                }
+
+
+                showComposeMessage(
+                    "Letter sent!",
+                    "success"
+                );
+
+
+                setTimeout(
+                    function() {
+
+                        closeCompose();
+
+                        showInboxPage();
+
+                        switchInboxTab("sent");
+
+                    },
+                    600
+                );
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                // If a database-level trigger enforces the daily limit
+                // too, its error message will surface here as a fallback.
+                showComposeMessage(
+                    error.message ||
+                    "Could not send your letter.",
+                    "error"
+                );
+
+            } finally {
+
+                button.disabled = false;
+
+                button.textContent = "Send letter →";
+
+            }
+
+        }
+    );
+
+
+/* =====================================================
+   INBOX PAGE
+===================================================== */
+
+function showInboxPage() {
+
+    document
+        .getElementById("profileCreation")
+        .style.display = "none";
+
+
+    document
+        .getElementById("discoverPage")
+        .style.display = "none";
+
+
+    document
+        .getElementById("inboxPage")
+        .style.display = "block";
+
+
+    setActiveNav("inbox");
+
+
+    loadLetters(currentInboxTab);
+
+}
+
+
+function switchInboxTab(tab) {
+
+    currentInboxTab = tab;
+
+    document.getElementById("tabReceived")
+        .classList.toggle("active", tab === "received");
+
+    document.getElementById("tabSent")
+        .classList.toggle("active", tab === "sent");
+
+    loadLetters(tab);
+
+}
+
+
+async function loadLetters(tab) {
+
+    const list =
+        document.getElementById("letterList");
+
+    list.innerHTML =
+        "<p>Loading letters...</p>";
+
+
+    const column =
+        tab === "received" ? "receiver_id" : "sender_id";
+
+
+    const { data, error } =
+        await supabaseClient
+            .from("letters")
+            .select(
+                "id, sender_id, receiver_id, subject, content, created_at, is_read"
+            )
+            .eq(column, currentUser.id)
+            .order("created_at", { ascending: false });
+
+
+    if (error) {
+
+        console.error(error);
+
+        list.innerHTML =
+            "<p>Could not load your letters.</p>";
+
+        return;
+
+    }
+
+
+    if (!data || data.length === 0) {
+
+        list.innerHTML = `
+            <div class="letter-empty">
+                ${tab === "received"
+                    ? "No letters yet. Once someone writes to you, it'll show up here."
+                    : "You haven't sent any letters yet."}
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    // fetch profile info for anyone not already cached
+    const otherIds =
+        [...new Set(data.map(function(l) {
+            return tab === "received" ? l.sender_id : l.receiver_id;
+        }))].filter(function(id) {
+            return !profileCache[id];
+        });
+
+
+    if (otherIds.length > 0) {
+
+        const { data: profs } =
+            await supabaseClient
+                .from("profiles")
+                .select("id, username, display_name, avatar_url")
+                .in("id", otherIds);
+
+
+        if (profs) {
+
+            profs.forEach(function(p) {
+
+                profileCache[p.id] = {
+                    display_name: p.display_name,
+                    username: p.username,
+                    avatar_url: p.avatar_url
+                };
+
+            });
+
+        }
+
+    }
+
+
+    list.innerHTML = "";
+
+
+    data.forEach(function(letter) {
+
+        const otherId =
+            tab === "received" ? letter.sender_id : letter.receiver_id;
+
+
+        const prof =
+            profileCache[otherId] || {};
+
+
+        const name =
+            prof.display_name || prof.username || "Unknown";
+
+
+        const initial =
+            name.charAt(0).toUpperCase();
+
+
+        const isUnread =
+            tab === "received" && !letter.is_read;
+
+
+        const row =
+            document.createElement("div");
+
+        row.className =
+            "letter-row" + (isUnread ? " unread" : "");
+
+
+        const dateStr =
+            new Date(letter.created_at).toLocaleDateString(
+                undefined,
+                { month: "short", day: "numeric" }
+            );
+
+
+        row.innerHTML = `
+
+            <div class="letter-row-avatar">
+                ${prof.avatar_url
+                    ? `<img src="${escapeHTML(prof.avatar_url)}" onerror="this.style.display='none';">`
+                    : escapeHTML(initial)}
+            </div>
+
+            <div class="letter-row-body">
+                <div class="letter-row-top">
+                    <span class="letter-row-name">
+                        ${tab === "received" ? "From " : "To "}${escapeHTML(name)}
+                    </span>
+                    <span class="letter-row-date">${dateStr}</span>
+                </div>
+                <div class="letter-row-subject">
+                    ${escapeHTML(letter.subject || "(No subject)")}
+                </div>
+            </div>
+
+            ${isUnread ? '<div class="unread-dot"></div>' : ''}
+
+        `;
+
+
+        row.onclick = function() {
+
+            openReadLetter(letter, name, prof.avatar_url, tab);
+
+        };
+
+
+        list.appendChild(row);
+
+    });
+
+}
+
+
+/* =====================================================
+   READ LETTER
+===================================================== */
+
+async function openReadLetter(letter, otherName, otherAvatar, tab) {
+
+    document.getElementById("readLetterFrom").textContent =
+        (tab === "received" ? "From " : "To ") + otherName;
+
+    document.getElementById("readLetterSubject").textContent =
+        letter.subject || "(No subject)";
+
+    document.getElementById("readLetterContent").textContent =
+        letter.content;
+
+    document.getElementById("readLetterDate").textContent =
+        new Date(letter.created_at).toLocaleString();
+
+
+    const avatarBox =
+        document.getElementById("readLetterAvatar");
+
+    if (otherAvatar) {
+
+        avatarBox.innerHTML = `<img src="${escapeHTML(otherAvatar)}" onerror="this.style.display='none';">`;
+
+    } else {
+
+        avatarBox.textContent =
+            otherName.charAt(0).toUpperCase();
+
+    }
+
+
+    document
+        .getElementById("readLetterModal")
+        .classList.add("show");
+
+
+    // mark as read once opened, and refresh the list + badge
+    if (tab === "received" && !letter.is_read) {
+
+        const { error } =
+            await supabaseClient
+                .from("letters")
+                .update({ is_read: true })
+                .eq("id", letter.id);
+
+
+        if (!error) {
+
+            letter.is_read = true;
+
+            loadLetters("received");
+
+            refreshUnreadBadge();
+
+        }
+
+    }
+
+}
+
+
+function closeReadLetter() {
+
+    document
+        .getElementById("readLetterModal")
+        .classList.remove("show");
+
+}
+
+
+/* =====================================================
+   UNREAD BADGE
+===================================================== */
+
+async function refreshUnreadBadge() {
+
+    if (!currentUser) {
+        return;
+    }
+
+
+    const { count, error } =
+        await supabaseClient
+            .from("letters")
+            .select("*", { count: "exact", head: true })
+            .eq("receiver_id", currentUser.id)
+            .eq("is_read", false);
+
+
+    const badge =
+        document.getElementById("unreadBadge");
+
+    if (error || !count) {
+
+        badge.style.display = "none";
+
+        return;
+
+    }
+
+
+    badge.textContent =
+        count > 9 ? "9+" : String(count);
+
+    badge.style.display = "block";
+
+}
+
+
+/* =====================================================
    SIMPLE HTML ESCAPE
 ===================================================== */
 
@@ -2600,19 +3664,6 @@ function escapeHTML(value) {
 
 
 /* =====================================================
-   COMING SOON
-===================================================== */
-
-function comingSoon() {
-
-    alert(
-        "Sending letters is coming next."
-    );
-
-}
-
-
-/* =====================================================
    LOGOUT
 ===================================================== */
 
@@ -2621,6 +3672,8 @@ async function logout() {
     await supabaseClient.auth.signOut();
 
     currentUser = null;
+
+    currentUserProfile = null;
 
 
     document
