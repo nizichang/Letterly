@@ -1260,6 +1260,27 @@ footer {
                 </div>
 
 
+
+                <div class="form-group">
+                    <label>Age</label>
+                    <input id="profileAge" type="number" placeholder="18" min="10" max="100" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Interests</label>
+                    <input id="profileInterests" type="text" placeholder="Gaming, Programming, Music">
+                </div>
+
+                <div class="form-group">
+                    <label>Languages</label>
+                    <input id="profileLanguages" type="text" placeholder="Chinese, English">
+                </div>
+
+                <div class="form-group">
+                    <label>Avatar URL</label>
+                    <input id="profileAvatar" type="url" placeholder="https://...">
+                </div>
+
                 <div class="form-group">
 
                     <label>
@@ -1904,6 +1925,11 @@ document
                     .value
                     .trim();
 
+            const age = document.getElementById("profileAge").value;
+            const interests = document.getElementById("profileInterests").value.trim();
+            const languages = document.getElementById("profileLanguages").value.trim();
+            const avatar_url = document.getElementById("profileAvatar").value.trim();
+
 
             const button =
                 document
@@ -2058,7 +2084,7 @@ async function loadUsers() {
         await supabaseClient
             .from("profiles")
             .select(
-                "id, username, display_name, country, bio"
+                "id, username, display_name, country, bio, age, interests, languages, avatar_url"
             )
             .neq(
                 "id",
