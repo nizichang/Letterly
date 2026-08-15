@@ -1936,11 +1936,13 @@ document
 
                 if (upload.error) throw upload.error;
 
-                const publicUrl = supabaseClient.storage
+                const { data: publicData } = supabaseClient.storage
                     .from("avatars")
                     .getPublicUrl(path);
 
-                avatar_url = publicUrl.data.publicUrl;
+                avatar_url = publicData.publicUrl;
+
+                console.log("Avatar URL:", avatar_url);
             }
 
 
@@ -1965,7 +1967,7 @@ document
                 } =
                     await supabaseClient
                         .from("profiles")
-                        .insert({
+                        .upsert({
 
                             id: currentUser.id,
 
@@ -2051,6 +2053,36 @@ document
    DISCOVER PAGE
 ===================================================== */
 
+
+async function loadMyProfileAvatar(){
+
+    const {data} = await supabaseClient
+        .from("profiles")
+        .select("avatar_url")
+        .eq("id", currentUser.id)
+        .maybeSingle();
+
+    const box = document.getElementById("miniAvatar");
+
+    if(data && data.avatar_url){
+
+        box.innerHTML = `<img src="${escapeHTML(data.avatar_url)}"
+        style="width:100%;height:100%;border-radius:50%;object-fit:cover;"
+        onerror="this.style.display='none';">`;
+
+    }else{
+
+        box.textContent = currentUser.email.charAt(0).toUpperCase();
+
+    }
+}
+
+function viewProfile(id){
+
+    alert("个人资料页面已连接，用户ID：" + id);
+
+}
+
 function showDiscoverPage() {
 
     document
@@ -2065,12 +2097,7 @@ function showDiscoverPage() {
 
     if (currentUser) {
 
-        document
-            .getElementById("miniAvatar")
-            .textContent =
-                currentUser.email
-                    .charAt(0)
-                    .toUpperCase();
+        loadMyProfileAvatar();
 
     }
 
@@ -2180,7 +2207,8 @@ async function loadUsers() {
         card.innerHTML = `
 
             <div class="user-avatar">
-                ${user.avatar_url ? `<img src="${escapeHTML(user.avatar_url)}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">` : escapeHTML(initial)}
+                ${user.avatar_url ? `<img src="${escapeHTML(user.avatar_url)}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;"
+onerror="this.style.display='none';">` : escapeHTML(initial)}
             </div>
 
             <h3>
@@ -2207,7 +2235,7 @@ async function loadUsers() {
             <button
                 class="secondary"
                 style="width:100%;"
-                onclick="comingSoon()"
+                onclick="viewProfile('${user.id}')
             >
                 View profile →
             </button>
