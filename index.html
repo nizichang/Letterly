@@ -8,7 +8,29 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,440;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+
 <style>
+:root {
+    --paper:        #F6EFE0;
+    --paper-deep:    #EDE2C8;
+    --card:          #FFFDF7;
+    --ink:           #232C42;
+    --ink-soft:      #626C86;
+    --ink-faint:     #8B8F7E;
+    --airmail-red:   #BD4438;
+    --airmail-blue:  #3C5A79;
+    --stamp:         #B4854C;
+    --line:          #E1D6BA;
+    --line-soft:     #EDE4CE;
+
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-hand: 'Caveat', cursive;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -16,17 +38,13 @@
 }
 
 body {
-    font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Helvetica,
-        Arial,
-        sans-serif;
+    font-family: var(--font-body);
 
-    background: #f7f5f0;
-    color: #1d1d1f;
+    background-color: var(--paper);
+    background-image: radial-gradient(circle at 1px 1px, rgba(35,44,66,0.05) 1px, transparent 0);
+    background-size: 24px 24px;
+
+    color: var(--ink);
 }
 
 button,
@@ -41,11 +59,91 @@ button {
 }
 
 /* =========================
+   AIRMAIL SIGNATURE STRIPE
+   (recurring motif — the diagonal
+   red/blue edging of an airmail
+   envelope, used as a top border
+   accent throughout the page)
+========================= */
+
+.airmail-strip {
+    position: relative;
+    overflow: hidden;
+}
+
+.airmail-strip::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 7px;
+
+    background: repeating-linear-gradient(
+        -45deg,
+        var(--airmail-red) 0 9px,
+        var(--card) 9px 12px,
+        var(--airmail-blue) 12px 21px,
+        var(--card) 21px 24px
+    );
+
+    z-index: 2;
+}
+
+/* =========================
+   POSTMARK STAMP
+========================= */
+
+.postmark {
+    width: 68px;
+    height: 68px;
+
+    border-radius: 50%;
+
+    border: 1.5px solid var(--ink);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+
+    color: var(--ink);
+
+    flex-shrink: 0;
+}
+
+.postmark::before {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    border: 1px dashed var(--ink);
+    border-radius: 50%;
+    opacity: 0.5;
+}
+
+.postmark .pm-top {
+    font-family: var(--font-hand);
+    font-size: 15px;
+    line-height: 1;
+    font-weight: 600;
+}
+
+.postmark .pm-bottom {
+    font-size: 8px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 3px;
+    color: var(--ink-soft);
+}
+
+/* =========================
    NAV
 ========================= */
 
 nav {
-    height: 76px;
+    height: 84px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -56,33 +154,42 @@ nav {
 }
 
 .logo {
-    font-size: 24px;
+    font-family: var(--font-display);
+    font-size: 25px;
     font-weight: 700;
-    letter-spacing: -0.7px;
+    letter-spacing: -0.5px;
+    color: var(--ink);
+}
+
+.logo span {
+    color: var(--airmail-red);
 }
 
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 28px;
+    gap: 30px;
 }
 
 .nav-links a {
     text-decoration: none;
-    color: #555;
+    color: var(--ink-soft);
     font-size: 14px;
+    font-weight: 500;
     cursor: pointer;
+    transition: color 0.15s ease;
 }
 
 .nav-links a:hover {
-    color: #111;
+    color: var(--ink);
 }
 
 .login-btn {
-    border: 1px solid #ddd;
-    padding: 10px 17px;
+    border: 1px solid var(--line);
+    padding: 10px 19px;
     border-radius: 999px;
-    background: white;
+    background: var(--card);
+    color: var(--ink) !important;
 }
 
 /* =========================
@@ -93,52 +200,74 @@ nav {
     max-width: 1180px;
     margin: auto;
 
-    min-height: 650px;
+    min-height: 640px;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 40px;
 
-    padding: 70px 24px;
+    padding: 50px 24px 90px;
 }
 
 .hero-text {
-    max-width: 610px;
+    max-width: 560px;
 }
 
 .badge {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
 
-    background: #fff;
-    border: 1px solid #e6e2da;
+    background: var(--card);
+    border: 1px solid var(--line);
 
-    padding: 9px 15px;
+    padding: 8px 16px 8px 8px;
     border-radius: 999px;
 
     font-size: 13px;
-    color: #666;
+    color: var(--ink-soft);
+    font-weight: 500;
 
-    margin-bottom: 28px;
+    margin-bottom: 30px;
+}
+
+.badge .badge-dot {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--airmail-red);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
 }
 
 .hero h1 {
-    font-size: clamp(52px, 7vw, 86px);
-    line-height: 0.98;
-    letter-spacing: -4px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(46px, 6vw, 74px);
+    line-height: 1.03;
+    letter-spacing: -1.5px;
 
-    margin-bottom: 28px;
+    color: var(--ink);
+
+    margin-bottom: 24px;
 }
 
-.hero h1 span {
-    color: #777;
+.hero h1 em {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--airmail-red);
 }
 
 .hero p {
-    font-size: 19px;
-    line-height: 1.6;
-    color: #666;
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--ink-soft);
 
-    max-width: 520px;
+    max-width: 480px;
 
     margin-bottom: 36px;
 }
@@ -151,30 +280,39 @@ nav {
 
 .primary,
 .secondary {
-    padding: 15px 24px;
+    padding: 15px 26px;
 
     border-radius: 999px;
 
     font-size: 15px;
     font-weight: 600;
+
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .primary {
-    background: #1d1d1f;
-    color: white;
+    background: var(--ink);
+    color: var(--paper);
 
     border: none;
+
+    box-shadow: 0 1px 0 rgba(0,0,0,0.05);
 }
 
 .primary:hover {
     transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(35,44,66,0.22);
 }
 
 .secondary {
-    background: white;
-    color: #1d1d1f;
+    background: var(--card);
+    color: var(--ink);
 
-    border: 1px solid #ddd;
+    border: 1px solid var(--line);
+}
+
+.secondary:hover {
+    border-color: var(--ink-soft);
 }
 
 /* =========================
@@ -182,41 +320,41 @@ nav {
 ========================= */
 
 .hero-card {
-    width: 370px;
+    width: 380px;
     height: 440px;
     position: relative;
+    flex-shrink: 0;
 }
 
 .card {
     position: absolute;
 
-    width: 310px;
+    width: 320px;
     height: 380px;
 
-    background: #fff;
+    background: var(--card);
 
-    border-radius: 18px;
+    border-radius: 6px;
 
-    box-shadow:
-        0 30px 70px rgba(0,0,0,0.12);
+    box-shadow: 0 34px 70px rgba(35,44,66,0.16);
 
-    padding: 30px;
+    padding: 34px 30px 30px;
 }
 
 .card-back {
     right: 0;
-    top: 35px;
+    top: 45px;
 
-    transform: rotate(7deg);
+    transform: rotate(6deg);
 
-    background: #e9e5dc;
+    background: var(--paper-deep);
 }
 
 .card-front {
     left: 0;
-    top: 0;
+    top: 6px;
 
-    transform: rotate(-4deg);
+    transform: rotate(-3deg);
 }
 
 .card-top {
@@ -224,66 +362,73 @@ nav {
     align-items: center;
     gap: 14px;
 
-    margin-bottom: 30px;
+    margin-bottom: 28px;
 }
 
 .avatar {
-    width: 48px;
-    height: 48px;
+    width: 46px;
+    height: 46px;
 
     border-radius: 50%;
 
-    background: #ddd;
+    background: var(--paper-deep);
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    font-size: 20px;
+    font-size: 19px;
 }
 
 .name {
-    font-weight: 700;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--ink);
 }
 
 .country {
-    font-size: 13px;
-    color: #777;
+    font-size: 12.5px;
+    color: var(--ink-soft);
 
-    margin-top: 4px;
+    margin-top: 3px;
 }
 
 .card h3 {
-    font-size: 27px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-style: italic;
+    font-size: 25px;
+    color: var(--ink);
 
-    margin-bottom: 18px;
+    margin-bottom: 16px;
 }
 
 .card p {
-    font-size: 15px;
+    font-size: 14.5px;
     line-height: 1.7;
 
-    color: #666;
+    color: var(--ink-soft);
 }
 
 .line {
     height: 1px;
 
-    background: #eee;
+    background: var(--line-soft);
 
-    margin: 25px 0;
+    margin: 22px 0;
 }
 
 .stamp {
     position: absolute;
 
-    right: 25px;
-    bottom: 25px;
+    right: 24px;
+    bottom: 24px;
 
-    width: 55px;
-    height: 55px;
+    width: 52px;
+    height: 52px;
 
-    border: 2px solid #bbb;
+    border: 1.5px solid var(--stamp);
 
     border-radius: 50%;
 
@@ -291,9 +436,15 @@ nav {
     align-items: center;
     justify-content: center;
 
-    font-size: 11px;
+    font-size: 10px;
 
-    color: #777;
+    color: var(--stamp);
+
+    transform: rotate(-10deg);
+
+    font-family: var(--font-hand);
+    font-weight: 600;
+    font-size: 13px;
 }
 
 /* =========================
@@ -301,9 +452,11 @@ nav {
 ========================= */
 
 .features {
-    background: #fff;
+    background: var(--card);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
 
-    padding: 90px 24px;
+    padding: 96px 24px;
 }
 
 .features-inner {
@@ -312,21 +465,26 @@ nav {
 }
 
 .section-title {
-    max-width: 650px;
+    max-width: 620px;
 
-    margin-bottom: 55px;
+    margin-bottom: 58px;
 }
 
 .section-title h2 {
-    font-size: 48px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 46px;
 
-    letter-spacing: -2px;
+    letter-spacing: -1.5px;
+    line-height: 1.08;
 
-    margin-bottom: 15px;
+    color: var(--ink);
+
+    margin-bottom: 16px;
 }
 
 .section-title p {
-    color: #777;
+    color: var(--ink-soft);
 
     font-size: 17px;
 
@@ -339,33 +497,51 @@ nav {
     grid-template-columns:
         repeat(3, 1fr);
 
-    gap: 20px;
+    gap: 22px;
 }
 
 .feature {
-    border: 1px solid #eee;
+    border: 1px solid var(--line);
+    border-radius: 4px;
 
-    border-radius: 18px;
+    padding: 34px 28px 30px;
 
-    padding: 30px;
+    background: var(--paper);
 
-    background: #fafafa;
+    position: relative;
 }
 
 .feature-icon {
-    font-size: 30px;
+    width: 44px;
+    height: 44px;
 
-    margin-bottom: 25px;
+    border-radius: 50%;
+
+    background: var(--card);
+    border: 1px solid var(--line);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 19px;
+
+    margin-bottom: 26px;
 }
 
 .feature h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 18.5px;
+    color: var(--ink);
+
     margin-bottom: 10px;
 }
 
 .feature p {
-    color: #777;
+    color: var(--ink-soft);
 
-    line-height: 1.6;
+    line-height: 1.65;
 
     font-size: 14px;
 }
@@ -381,8 +557,7 @@ nav {
 
     inset: 0;
 
-    background:
-        rgba(0,0,0,0.45);
+    background: rgba(35,44,66,0.45);
 
     backdrop-filter: blur(5px);
 
@@ -402,14 +577,13 @@ nav {
     width: 100%;
     max-width: 420px;
 
-    background: white;
+    background: var(--card);
 
-    border-radius: 24px;
+    border-radius: 12px;
 
-    padding: 34px;
+    padding: 36px;
 
-    box-shadow:
-        0 30px 80px rgba(0,0,0,0.2);
+    box-shadow: 0 30px 80px rgba(35,44,66,0.28);
 
     position: relative;
 }
@@ -424,23 +598,32 @@ nav {
 
     background: transparent;
 
-    font-size: 24px;
+    font-size: 22px;
+    line-height: 1;
 
-    color: #777;
+    color: var(--ink-soft);
+}
+
+.close:hover {
+    color: var(--ink);
 }
 
 .modal-box h2 {
-    font-size: 30px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 28px;
+
+    color: var(--ink);
 
     margin-bottom: 8px;
 }
 
 .modal-subtitle {
-    color: #777;
+    color: var(--ink-soft);
 
     font-size: 14px;
 
-    margin-bottom: 25px;
+    margin-bottom: 26px;
 }
 
 .form-group {
@@ -450,11 +633,15 @@ nav {
 .form-group label {
     display: block;
 
-    font-size: 13px;
+    font-size: 11.5px;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
 
     font-weight: 600;
 
-    margin-bottom: 7px;
+    color: var(--ink-soft);
+
+    margin-bottom: 8px;
 }
 
 .form-group input,
@@ -465,13 +652,15 @@ nav {
 
     padding: 13px 15px;
 
-    border: 1px solid #ddd;
+    border: 1px solid var(--line);
 
-    border-radius: 12px;
+    border-radius: 8px;
 
     outline: none;
 
-    background: white;
+    background: var(--card);
+
+    color: var(--ink);
 }
 
 .form-group textarea {
@@ -485,7 +674,7 @@ nav {
 .form-group textarea:focus,
 .form-group select:focus {
 
-    border-color: #999;
+    border-color: var(--ink-soft);
 }
 
 .form-submit {
@@ -498,13 +687,19 @@ nav {
 
     border-radius: 999px;
 
-    background: #1d1d1f;
+    background: var(--ink);
 
-    color: white;
+    color: var(--paper);
 
     font-weight: 600;
 
     margin-top: 5px;
+
+    transition: transform 0.15s ease;
+}
+
+.form-submit:hover {
+    transform: translateY(-1px);
 }
 
 .switch {
@@ -515,12 +710,12 @@ nav {
 
     font-size: 14px;
 
-    color: #777;
+    color: var(--ink-soft);
 }
 
 .switch span {
 
-    color: #111;
+    color: var(--ink);
 
     font-weight: 600;
 
@@ -537,7 +732,7 @@ nav {
 
     padding: 11px 13px;
 
-    border-radius: 10px;
+    border-radius: 8px;
 
     font-size: 13px;
 
@@ -550,16 +745,16 @@ nav {
 
 .message.error {
 
-    background: #fff0f0;
+    background: #FBECEA;
 
-    color: #b42318;
+    color: #A13C30;
 }
 
 .message.success {
 
-    background: #effaf1;
+    background: #E9F3EB;
 
-    color: #217a36;
+    color: #2F6E3F;
 }
 
 /* =========================
@@ -572,16 +767,16 @@ nav {
 
     min-height: 100vh;
 
-    background: #f7f5f0;
+    background: var(--paper);
 }
 
 .app-nav {
 
     height: 76px;
 
-    background: rgba(255,255,255,0.85);
+    background: rgba(255,253,247,0.9);
 
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--line);
 
     display: flex;
 
@@ -603,16 +798,20 @@ nav {
 
 .app-nav-logo {
 
-    font-size: 23px;
+    font-family: var(--font-display);
+    font-size: 22px;
 
     font-weight: 700;
+
+    color: var(--ink);
 }
 
 .app-nav-link {
 
-    color: #777;
+    color: var(--ink-soft);
 
     font-size: 14px;
+    font-weight: 500;
 }
 
 .app-nav-right {
@@ -631,7 +830,7 @@ nav {
 
     border-radius: 50%;
 
-    background: #e6e2da;
+    background: var(--paper-deep);
 
     display: flex;
 
@@ -639,15 +838,19 @@ nav {
     justify-content: center;
 
     font-weight: 700;
+
+    color: var(--ink);
 }
 
 .logout-btn {
 
-    border: 1px solid #ddd;
+    border: 1px solid var(--line);
 
-    background: white;
+    background: var(--card);
 
-    padding: 9px 15px;
+    color: var(--ink);
+
+    padding: 9px 16px;
 
     border-radius: 999px;
 
@@ -665,21 +868,26 @@ nav {
 
 .app-heading {
 
-    margin-bottom: 40px;
+    margin-bottom: 42px;
 }
 
 .app-heading h1 {
 
-    font-size: 48px;
+    font-family: var(--font-display);
+    font-weight: 600;
 
-    letter-spacing: -2px;
+    font-size: 44px;
+
+    letter-spacing: -1.5px;
+
+    color: var(--ink);
 
     margin-bottom: 10px;
 }
 
 .app-heading p {
 
-    color: #777;
+    color: var(--ink-soft);
 
     font-size: 17px;
 }
@@ -694,28 +902,32 @@ nav {
 
     margin: 30px auto;
 
-    background: white;
+    background: var(--card);
 
-    border: 1px solid #eee;
+    border: 1px solid var(--line);
 
-    border-radius: 25px;
+    border-radius: 14px;
 
-    padding: 40px;
+    padding: 42px;
 
-    box-shadow:
-        0 20px 60px rgba(0,0,0,0.06);
+    box-shadow: 0 20px 60px rgba(35,44,66,0.07);
 }
 
 .profile-card h2 {
 
-    font-size: 30px;
+    font-family: var(--font-display);
+    font-weight: 600;
+
+    font-size: 29px;
+
+    color: var(--ink);
 
     margin-bottom: 8px;
 }
 
 .profile-card .subtitle {
 
-    color: #777;
+    color: var(--ink-soft);
 
     margin-bottom: 30px;
 
@@ -732,13 +944,19 @@ nav {
 
     border-radius: 999px;
 
-    background: #1d1d1f;
+    background: var(--ink);
 
-    color: white;
+    color: var(--paper);
 
     font-weight: 600;
 
     margin-top: 5px;
+
+    transition: transform 0.15s ease;
+}
+
+.profile-submit:hover {
+    transform: translateY(-1px);
 }
 
 /* =========================
@@ -754,31 +972,44 @@ nav {
 
     display: grid;
 
-    grid-template-columns:
-        repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, 300px);
 
-    gap: 20px;
+    justify-content: center;
+
+    gap: 26px;
 }
 
 .user-card {
 
-    background: white;
+    background: var(--card);
 
-    border: 1px solid #eee;
+    border: 1px solid var(--line);
 
-    border-radius: 20px;
+    border-radius: 14px;
 
-    padding: 25px;
+    padding: 32px 26px 26px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.user-card:hover {
+    box-shadow: 0 14px 34px rgba(35,44,66,0.1);
+    transform: translateY(-2px);
 }
 
 .user-avatar {
 
-    width: 58px;
-    height: 58px;
+    width: 64px;
+    height: 64px;
 
     border-radius: 50%;
 
-    background: #e6e2da;
+    background: var(--paper-deep);
 
     display: flex;
 
@@ -787,33 +1018,177 @@ nav {
 
     font-size: 24px;
 
-    margin-bottom: 18px;
+    color: var(--ink);
+
+    margin: 0 auto 18px;
+
+    overflow: hidden;
 }
 
 .user-card h3 {
+
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--ink);
 
     margin-bottom: 5px;
 }
 
 .user-country {
 
-    color: #777;
+    color: var(--ink-soft);
 
     font-size: 13px;
 
-    margin-bottom: 15px;
+    margin-bottom: 16px;
 }
 
 .user-bio {
 
-    color: #666;
+    color: var(--ink-soft);
 
     line-height: 1.6;
 
     font-size: 14px;
 
-    margin-bottom: 20px;
+    margin-bottom: 22px;
+
+    flex-grow: 1;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
+
+.user-card .secondary {
+    margin-top: auto;
+}
+
+/* =========================
+   PROFILE VIEW MODAL
+========================= */
+
+#viewProfileModal .modal-box {
+    max-width: 620px;
+    padding: 52px;
+    border-radius: 22px;
+}
+
+.vp-header {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    margin-bottom: 32px;
+}
+
+.vp-avatar-ring {
+    width: 108px;
+    height: 108px;
+    border-radius: 50%;
+    padding: 4px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    box-shadow: 0 10px 26px rgba(35,44,66,0.12);
+    flex-shrink: 0;
+    position: relative;
+}
+
+.vp-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--paper-deep);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 38px;
+    color: var(--ink);
+
+    overflow: hidden;
+}
+
+.vp-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.vp-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 32px;
+    letter-spacing: -0.5px;
+    color: var(--ink);
+    margin-bottom: 6px;
+}
+
+.vp-country {
+    color: var(--ink-soft);
+    font-size: 14.5px;
+}
+
+.vp-chips {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.vp-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    background: var(--paper);
+    border: 1px solid var(--line);
+
+    padding: 9px 17px;
+    border-radius: 999px;
+
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    font-weight: 500;
+}
+
+.vp-chip:empty {
+    display: none;
+}
+
+.vp-section {
+    margin-bottom: 26px;
+}
+
+.vp-label {
+    font-size: 11.5px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--airmail-blue);
+    margin-bottom: 9px;
+}
+
+.vp-text {
+    font-size: 15.5px;
+    line-height: 1.75;
+    color: var(--ink);
+}
+
+.vp-divider {
+    height: 1px;
+    background: repeating-linear-gradient(
+        90deg,
+        var(--line) 0 6px,
+        transparent 6px 11px
+    );
+    margin: 26px 0;
+}
+
 
 /* =========================
    FOOTER
@@ -821,11 +1196,11 @@ nav {
 
 footer {
 
-    padding: 40px 24px;
+    padding: 46px 24px;
 
     text-align: center;
 
-    color: #888;
+    color: var(--ink-faint);
 
     font-size: 13px;
 }
@@ -846,7 +1221,11 @@ footer {
 
         text-align: center;
 
-        padding-top: 50px;
+        padding-top: 40px;
+    }
+
+    .hero-text {
+        max-width: 100%;
     }
 
     .hero p {
@@ -863,7 +1242,7 @@ footer {
 
     .hero-card {
 
-        margin-top: 70px;
+        margin-top: 60px;
 
         transform: scale(0.85);
     }
@@ -880,17 +1259,25 @@ footer {
 
     .section-title h2 {
 
-        font-size: 38px;
+        font-size: 36px;
     }
 
     .app-heading h1 {
 
-        font-size: 38px;
+        font-size: 36px;
     }
 
     .profile-card {
 
-        padding: 25px;
+        padding: 26px;
+    }
+
+    .vp-header {
+        flex-wrap: wrap;
+    }
+
+    #viewProfileModal .modal-box {
+        padding: 30px;
     }
 }
 </style>
@@ -937,12 +1324,13 @@ footer {
     <div class="hero-text">
 
         <div class="badge">
-            🌎 Meet people beyond your world
+            <span class="badge-dot">✉</span>
+            Correspondence, not scrolling
         </div>
 
         <h1>
             Write a letter.<br>
-            <span>Meet someone.</span>
+            <em>Meet someone.</em>
         </h1>
 
         <p>
@@ -974,9 +1362,9 @@ footer {
 
     <div class="hero-card">
 
-        <div class="card card-back"></div>
+        <div class="card card-back airmail-strip"></div>
 
-        <div class="card card-front">
+        <div class="card card-front airmail-strip">
 
             <div class="card-top">
 
@@ -1020,6 +1408,11 @@ footer {
                 ✉
             </div>
 
+            <div class="postmark" style="position:absolute; top:-22px; right:-22px; background:var(--card); transform:rotate(9deg);">
+                <div class="pm-top">14</div>
+                <div class="pm-bottom">Aug</div>
+            </div>
+
         </div>
 
     </div>
@@ -1052,7 +1445,7 @@ footer {
 
         <div class="feature-grid">
 
-            <div class="feature">
+            <div class="feature airmail-strip">
 
                 <div class="feature-icon">
                     🌎
@@ -1070,7 +1463,7 @@ footer {
             </div>
 
 
-            <div class="feature">
+            <div class="feature airmail-strip">
 
                 <div class="feature-icon">
                     ✉️
@@ -1089,7 +1482,7 @@ footer {
             </div>
 
 
-            <div class="feature">
+            <div class="feature airmail-strip">
 
                 <div class="feature-icon">
                     🔒
@@ -1445,7 +1838,7 @@ footer {
     id="viewProfileModal"
 >
 
-    <div class="modal-box" style="max-width:480px;">
+    <div class="modal-box airmail-strip">
 
         <button
             class="close"
@@ -1454,39 +1847,41 @@ footer {
             ×
         </button>
 
-        <div style="display:flex;align-items:center;gap:16px;margin-bottom:22px;">
+        <div class="vp-header">
 
-            <div
-                class="user-avatar"
-                id="vpAvatar"
-                style="width:70px;height:70px;font-size:28px;margin-bottom:0;flex-shrink:0;"
-            ></div>
+            <div class="vp-avatar-ring">
+                <div class="vp-avatar" id="vpAvatar"></div>
+            </div>
 
             <div>
-                <h2 id="vpName" style="font-size:24px;margin-bottom:4px;"></h2>
-                <div class="user-country" id="vpCountry" style="margin-bottom:0;"></div>
+                <div class="vp-name" id="vpName"></div>
+                <div class="vp-country" id="vpCountry"></div>
             </div>
 
         </div>
 
-        <div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:22px;font-size:13px;color:#777;">
-            <span id="vpAge"></span>
-            <span id="vpLanguages"></span>
+        <div class="vp-chips">
+            <span class="vp-chip" id="vpAge"></span>
+            <span class="vp-chip" id="vpGender"></span>
+            <span class="vp-chip" id="vpLanguages"></span>
         </div>
 
-        <div class="form-group">
-            <label>About</label>
-            <p id="vpBio" style="line-height:1.7;color:#555;font-size:14px;"></p>
+        <div class="vp-divider"></div>
+
+        <div class="vp-section">
+            <div class="vp-label">About</div>
+            <p class="vp-text" id="vpBio"></p>
         </div>
 
-        <div class="form-group">
-            <label>Interests</label>
-            <p id="vpInterests" style="line-height:1.7;color:#555;font-size:14px;"></p>
+        <div class="vp-section">
+            <div class="vp-label">Interests</div>
+            <p class="vp-text" id="vpInterests"></p>
         </div>
 
         <button
             class="form-submit"
             onclick="comingSoon()"
+            style="margin-top:6px;"
         >
             Send a letter →
         </button>
@@ -2340,6 +2735,7 @@ async function viewProfile(id) {
     document.getElementById("vpName").textContent = "Loading...";
     document.getElementById("vpCountry").textContent = "";
     document.getElementById("vpAge").textContent = "";
+    document.getElementById("vpGender").textContent = "";
     document.getElementById("vpLanguages").textContent = "";
     document.getElementById("vpBio").textContent = "";
     document.getElementById("vpInterests").textContent = "";
@@ -2353,7 +2749,7 @@ async function viewProfile(id) {
         await supabaseClient
             .from("profiles")
             .select(
-                "username, display_name, country, bio, age, interests, languages, avatar_url"
+                "username, display_name, country, bio, age, gender, interests, languages, avatar_url"
             )
             .eq("id", id)
             .maybeSingle();
@@ -2382,6 +2778,11 @@ async function viewProfile(id) {
 
     document.getElementById("vpAge").textContent =
         data.age ? ("🎂 " + escapeHTML(String(data.age))) : "";
+
+    const genderIcons = { "Male": "♂", "Female": "♀", "Other": "⚧" };
+
+    document.getElementById("vpGender").textContent =
+        data.gender ? ((genderIcons[data.gender] || "⚧") + " " + escapeHTML(data.gender)) : "";
 
     document.getElementById("vpLanguages").textContent =
         data.languages ? ("🗣 " + escapeHTML(data.languages)) : "";
