@@ -1222,30 +1222,6 @@ footer {
                 <div class="form-group">
 
                     <label>
-                        Age
-                    </label>
-                    <input id="profileAge" type="number" placeholder="16" min="10" max="100" required>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Gender
-                    </label>
-                    <select id="profileGender">
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Other">Other</option>
-                    </select>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
                         Country
                     </label>
 
@@ -1260,6 +1236,14 @@ footer {
                 </div>
 
 
+                <div class="form-group">
+                    <label>Gender</label>
+                    <select id="profileGender">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
 
                 <div class="form-group">
                     <label>Age</label>
@@ -1446,6 +1430,66 @@ footer {
             </span>
 
         </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     PROFILE VIEW MODAL
+========================= -->
+
+<div
+    class="modal"
+    id="viewProfileModal"
+>
+
+    <div class="modal-box" style="max-width:480px;">
+
+        <button
+            class="close"
+            onclick="closeViewProfile()"
+        >
+            ×
+        </button>
+
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:22px;">
+
+            <div
+                class="user-avatar"
+                id="vpAvatar"
+                style="width:70px;height:70px;font-size:28px;margin-bottom:0;flex-shrink:0;"
+            ></div>
+
+            <div>
+                <h2 id="vpName" style="font-size:24px;margin-bottom:4px;"></h2>
+                <div class="user-country" id="vpCountry" style="margin-bottom:0;"></div>
+            </div>
+
+        </div>
+
+        <div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:22px;font-size:13px;color:#777;">
+            <span id="vpAge"></span>
+            <span id="vpLanguages"></span>
+        </div>
+
+        <div class="form-group">
+            <label>About</label>
+            <p id="vpBio" style="line-height:1.7;color:#555;font-size:14px;"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Interests</label>
+            <p id="vpInterests" style="line-height:1.7;color:#555;font-size:14px;"></p>
+        </div>
+
+        <button
+            class="form-submit"
+            onclick="comingSoon()"
+        >
+            Send a letter →
+        </button>
 
     </div>
 
@@ -1909,7 +1953,10 @@ document
                     .trim();
 
 
-            const gender = document.getElementById("profileGender").value;
+            const gender =
+                document.getElementById(
+                    "profileGender"
+                ).value;
 
             const bio =
                 document
@@ -1919,32 +1966,33 @@ document
                     .value
                     .trim();
 
-            const age = document.getElementById("profileAge").value;
-            const interests = document.getElementById("profileInterests").value.trim();
-            const languages = document.getElementById("profileLanguages").value.trim();
+            const age =
+                document.getElementById(
+                    "profileAge"
+                ).value;
+
+            const interests =
+                document
+                    .getElementById(
+                        "profileInterests"
+                    )
+                    .value
+                    .trim();
+
+            const languages =
+                document
+                    .getElementById(
+                        "profileLanguages"
+                    )
+                    .value
+                    .trim();
+
             let avatar_url = "";
 
-            const avatarFile = document.getElementById("profileAvatarFile").files[0];
-
-            if (avatarFile) {
-                const ext = avatarFile.name.split('.').pop();
-                const path = currentUser.id + "/avatar." + ext;
-
-                const upload = await supabaseClient.storage
-                    .from("avatars")
-                    .upload(path, avatarFile, { upsert: true });
-
-                if (upload.error) throw upload.error;
-
-                const { data: publicData } = supabaseClient.storage
-                    .from("avatars")
-                    .getPublicUrl(path);
-
-                avatar_url = publicData.publicUrl;
-
-                console.log("Avatar URL:", avatar_url);
-            }
-
+            const avatarFile =
+                document.getElementById(
+                    "profileAvatarFile"
+                ).files[0];
 
             const button =
                 document
@@ -1960,6 +2008,38 @@ document
 
 
             try {
+
+                if (avatarFile) {
+
+                    const ext =
+                        avatarFile.name.split('.').pop();
+
+                    const path =
+                        currentUser.id + "/avatar." + ext;
+
+                    const upload =
+                        await supabaseClient.storage
+                            .from("avatars")
+                            .upload(
+                                path,
+                                avatarFile,
+                                { upsert: true }
+                            );
+
+                    if (upload.error) {
+                        throw upload.error;
+                    }
+
+                    const { data: publicData } =
+                        supabaseClient.storage
+                            .from("avatars")
+                            .getPublicUrl(path);
+
+                    avatar_url =
+                        publicData.publicUrl;
+
+                }
+
 
                 const {
                     data,
@@ -2077,11 +2157,6 @@ async function loadMyProfileAvatar(){
     }
 }
 
-function viewProfile(id){
-
-    alert("个人资料页面已连接，用户ID：" + id);
-
-}
 
 function showDiscoverPage() {
 
@@ -2235,7 +2310,7 @@ onerror="this.style.display='none';">` : escapeHTML(initial)}
             <button
                 class="secondary"
                 style="width:100%;"
-                onclick="viewProfile('${user.id}')
+                onclick="viewProfile('${user.id}')"
             >
                 View profile →
             </button>
@@ -2246,6 +2321,102 @@ onerror="this.style.display='none';">` : escapeHTML(initial)}
         grid.appendChild(card);
 
     });
+
+}
+
+
+/* =====================================================
+   VIEW PROFILE (个人主页)
+===================================================== */
+
+async function viewProfile(id) {
+
+    const modal =
+        document.getElementById("viewProfileModal");
+
+    modal.classList.add("show");
+
+    // loading 状态
+    document.getElementById("vpName").textContent = "Loading...";
+    document.getElementById("vpCountry").textContent = "";
+    document.getElementById("vpAge").textContent = "";
+    document.getElementById("vpLanguages").textContent = "";
+    document.getElementById("vpBio").textContent = "";
+    document.getElementById("vpInterests").textContent = "";
+    document.getElementById("vpAvatar").innerHTML = "";
+
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("profiles")
+            .select(
+                "username, display_name, country, bio, age, interests, languages, avatar_url"
+            )
+            .eq("id", id)
+            .maybeSingle();
+
+
+    if (error || !data) {
+
+        document.getElementById("vpName").textContent =
+            "Could not load profile.";
+
+        return;
+
+    }
+
+
+    const name =
+        data.display_name ||
+        data.username ||
+        "Unknown";
+
+
+    document.getElementById("vpName").textContent = name;
+
+    document.getElementById("vpCountry").textContent =
+        "🌎 " + (data.country || "Unknown");
+
+    document.getElementById("vpAge").textContent =
+        data.age ? ("🎂 " + escapeHTML(String(data.age))) : "";
+
+    document.getElementById("vpLanguages").textContent =
+        data.languages ? ("🗣 " + escapeHTML(data.languages)) : "";
+
+    document.getElementById("vpBio").textContent =
+        data.bio || "No bio yet.";
+
+    document.getElementById("vpInterests").textContent =
+        data.interests || "No interests listed.";
+
+
+    const avatarBox =
+        document.getElementById("vpAvatar");
+
+    if (data.avatar_url) {
+
+        avatarBox.innerHTML = `<img src="${escapeHTML(data.avatar_url)}"
+            style="width:100%;height:100%;border-radius:50%;object-fit:cover;"
+            onerror="this.style.display='none';">`;
+
+    } else {
+
+        avatarBox.textContent =
+            name.charAt(0).toUpperCase();
+
+    }
+
+}
+
+
+function closeViewProfile() {
+
+    document
+        .getElementById("viewProfileModal")
+        .classList.remove("show");
 
 }
 
@@ -2278,7 +2449,7 @@ function escapeHTML(value) {
 function comingSoon() {
 
     alert(
-        "Profile pages and letters are coming next."
+        "Sending letters is coming next."
     );
 
 }
