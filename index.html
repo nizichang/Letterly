@@ -1222,6 +1222,30 @@ footer {
                 <div class="form-group">
 
                     <label>
+                        Age
+                    </label>
+                    <input id="profileAge" type="number" placeholder="16" min="10" max="100" required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Gender
+                    </label>
+                    <select id="profileGender">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
                         Country
                     </label>
 
@@ -1864,6 +1888,14 @@ document
                     .trim();
 
 
+            const age = document.getElementById("profileAge").value;
+
+            const gender = document.getElementById("profileGender").value;
+
+            const languages = "";
+
+            const interests = "";
+
             const bio =
                 document
                     .getElementById(
@@ -1906,6 +1938,18 @@ document
 
                             country:
                                 country,
+
+                            age:
+                                age,
+
+                            gender:
+                                gender,
+
+                            languages:
+                                languages,
+
+                            interests:
+                                interests,
 
                             bio:
                                 bio
