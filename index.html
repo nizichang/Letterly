@@ -41,6 +41,92 @@ button {
 }
 
 /* =========================
+   AUTH POLISH
+========================= */
+.auth-box {
+    max-width: 450px;
+    padding: 38px 34px 30px;
+}
+
+.auth-mark {
+    width: 48px;
+    height: 48px;
+    border-radius: 15px;
+    display: grid;
+    place-items: center;
+    margin-bottom: 18px;
+    background: linear-gradient(135deg, #f1e9ff, #e6f4ff);
+    color: #4b3f72;
+    font-size: 21px;
+    box-shadow: inset 0 0 0 1px rgba(75,63,114,.08);
+}
+
+.auth-box h2 {
+    letter-spacing: -1px;
+}
+
+.signup-note {
+    margin: 8px 0 18px;
+    padding: 13px 14px;
+    border-radius: 14px;
+    background: #f7f6fb;
+    color: #6f6b78;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.signup-note strong {
+    color: #302b3d;
+}
+
+.signup-code-group input {
+    text-align: center;
+    letter-spacing: 8px;
+    font-size: 25px;
+    font-weight: 700;
+    padding-left: 20px;
+}
+
+.code-help {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #8a8790;
+}
+
+.auth-secondary-button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 11px 14px;
+    border: 1px solid #e1dfe5;
+    border-radius: 999px;
+    background: #fff;
+    color: #4c4852;
+    font-weight: 600;
+}
+
+.auth-secondary-button:hover {
+    background: #f7f6f8;
+}
+
+.auth-secondary-button:disabled {
+    opacity: .55;
+    cursor: not-allowed;
+}
+
+@media (max-width: 800px) {
+    .auth-box {
+        width: 94vw;
+        padding: 32px 24px 25px;
+        border-radius: 22px;
+    }
+
+    .signup-code-group input {
+        letter-spacing: 5px;
+        font-size: 22px;
+    }
+}
+
+/* =========================
    NAV
 ========================= */
 
@@ -2694,103 +2780,61 @@ body,
      AUTH MODAL
 ========================= -->
 
-<div
-    class="modal"
-    id="authModal"
->
+<div class="modal" id="authModal">
+    <div class="modal-box auth-box">
+        <button class="close" onclick="closeAuth()" aria-label="Close">×</button>
 
-    <div class="modal-box">
+        <div class="auth-mark">✉</div>
 
-        <button
-            class="close"
-            onclick="closeAuth()"
-        >
-            ×
-        </button>
+        <h2 id="authTitle">Welcome back</h2>
+        <div class="modal-subtitle" id="authSubtitle">Log in to continue your journey.</div>
 
-
-        <h2 id="authTitle">
-            Welcome back
-        </h2>
-
-
-        <div
-            class="modal-subtitle"
-            id="authSubtitle"
-        >
-            Log in to continue your journey.
-        </div>
-
-
-        <form id="authForm">
-
+        <form id="authForm" novalidate>
             <div class="form-group">
-
-                <label>
-                    Email
-                </label>
-
-                <input
-                    id="email"
-                    type="email"
-                    placeholder="you@example.com"
-                    required
-                >
-
+                <label for="email">Email</label>
+                <input id="email" type="email" placeholder="you@example.com" autocomplete="email" required>
             </div>
 
-
-            <div class="form-group">
-
-                <label>
-                    Password
-                </label>
-
-                <input
-                    id="password"
-                    type="password"
-                    placeholder="At least 6 characters"
-                    minlength="6"
-                    required
-                >
-
+            <div class="form-group" id="loginPasswordGroup">
+                <label for="password">Password</label>
+                <input id="password" type="password" placeholder="Your password" autocomplete="current-password" minlength="6">
             </div>
 
+            <div class="signup-note" id="signupNote">
+                We'll send an <strong>8-digit verification code</strong> to your email.
+            </div>
 
-            <button
-                class="form-submit"
-                type="submit"
-                id="submitButton"
-            >
-                Log in
+            <div class="form-group signup-code-group" id="signupCodeGroup" style="display:none;">
+                <label for="signupCode">Verification code</label>
+                <input id="signupCode" type="text" inputmode="numeric" autocomplete="one-time-code"
+                       maxlength="8" pattern="\d{8}" placeholder="00000000">
+                <div class="code-help">Enter the 8-digit code from your email.</div>
+            </div>
+
+            <div class="form-group signup-password-group" id="signupPasswordGroup" style="display:none;">
+                <label for="signupPassword">Create a password</label>
+                <input id="signupPassword" type="password" autocomplete="new-password" minlength="6" placeholder="At least 6 characters">
+            </div>
+
+            <div class="form-group signup-password-group" id="signupConfirmPasswordGroup" style="display:none;">
+                <label for="signupPasswordConfirm">Confirm password</label>
+                <input id="signupPasswordConfirm" type="password" autocomplete="new-password" minlength="6" placeholder="Enter it again">
+            </div>
+
+            <button class="form-submit" type="submit" id="submitButton">Log in</button>
+
+            <button class="auth-secondary-button" type="button" id="resendCodeButton" style="display:none;" onclick="resendSignupCode()">
+                Resend code
             </button>
-
         </form>
 
-
-        <div
-            class="message"
-            id="authMessage"
-        ></div>
-
+        <div class="message" id="authMessage"></div>
 
         <div class="switch">
-
-            <span id="switchText">
-                Don't have an account?
-            </span>
-
-            <span
-                id="switchButton"
-                onclick="switchAuthMode()"
-            >
-                Create one
-            </span>
-
+            <span id="switchText">Don't have an account?</span>
+            <span id="switchButton" onclick="switchAuthMode()">Create one</span>
         </div>
-
     </div>
-
 </div>
 
 
@@ -3000,291 +3044,317 @@ let currentInboxTab = "received";
    AUTH UI
 ===================================================== */
 
+let signupStep = "email";
+let signupEmail = "";
+let signupTempPassword = "";
+
 function openAuth(mode) {
-
     authMode = mode;
+    signupStep = "email";
+    signupEmail = "";
+    signupTempPassword = "";
 
-    document
-        .getElementById("authModal")
-        .classList.add("show");
-
+    document.getElementById("authModal").classList.add("show");
     updateAuthUI();
-
     clearAuthMessage();
 }
-
 
 function closeAuth() {
-
-    document
-        .getElementById("authModal")
-        .classList.remove("show");
-
+    document.getElementById("authModal").classList.remove("show");
+    signupStep = "email";
+    signupEmail = "";
+    signupTempPassword = "";
 }
 
-
 function switchAuthMode() {
-
-    authMode =
-        authMode === "login"
-            ? "signup"
-            : "login";
-
+    authMode = authMode === "login" ? "signup" : "login";
+    signupStep = "email";
+    signupEmail = "";
+    signupTempPassword = "";
     updateAuthUI();
-
     clearAuthMessage();
 }
 
-
 function updateAuthUI() {
-
-    const title =
-        document.getElementById("authTitle");
-
-    const subtitle =
-        document.getElementById("authSubtitle");
-
-    const button =
-        document.getElementById("submitButton");
-
-    const switchText =
-        document.getElementById("switchText");
-
-    const switchButton =
-        document.getElementById("switchButton");
-
+    const title = document.getElementById("authTitle");
+    const subtitle = document.getElementById("authSubtitle");
+    const button = document.getElementById("submitButton");
+    const switchText = document.getElementById("switchText");
+    const switchButton = document.getElementById("switchButton");
+    const loginPasswordGroup = document.getElementById("loginPasswordGroup");
+    const signupNote = document.getElementById("signupNote");
+    const signupCodeGroup = document.getElementById("signupCodeGroup");
+    const signupPasswordGroup = document.getElementById("signupPasswordGroup");
+    const signupConfirmPasswordGroup = document.getElementById("signupConfirmPasswordGroup");
+    const resendButton = document.getElementById("resendCodeButton");
+    const emailInput = document.getElementById("email");
+    const codeInput = document.getElementById("signupCode");
 
     if (authMode === "login") {
+        title.textContent = "Welcome back";
+        subtitle.textContent = "Log in to continue your journey.";
+        button.textContent = "Log in";
+        switchText.textContent = "Don't have an account?";
+        switchButton.textContent = "Create one";
 
-        title.textContent =
-            "Welcome back";
-
-        subtitle.textContent =
-            "Log in to continue your journey.";
-
-        button.textContent =
-            "Log in";
-
-        switchText.textContent =
-            "Don't have an account?";
-
-        switchButton.textContent =
-            "Create one";
-
-    } else {
-
-        title.textContent =
-            "Create your account";
-
-        subtitle.textContent =
-            "Start your pen pal journey.";
-
-        button.textContent =
-            "Create account";
-
-        switchText.textContent =
-            "Already have an account?";
-
-        switchButton.textContent =
-            "Log in";
-
+        loginPasswordGroup.style.display = "block";
+        signupNote.style.display = "none";
+        signupCodeGroup.style.display = "none";
+        signupPasswordGroup.style.display = "none";
+        signupConfirmPasswordGroup.style.display = "none";
+        resendButton.style.display = "none";
+        emailInput.readOnly = false;
+        codeInput.value = "";
+        return;
     }
 
+    loginPasswordGroup.style.display = "none";
+    signupNote.style.display = signupStep === "email" ? "block" : "none";
+    signupCodeGroup.style.display = signupStep === "email" ? "none" : "block";
+    signupPasswordGroup.style.display = signupStep === "verified" ? "block" : "none";
+    signupConfirmPasswordGroup.style.display = signupStep === "verified" ? "block" : "none";
+    resendButton.style.display = signupStep === "code" ? "block" : "none";
+
+    if (signupStep === "email") {
+        title.textContent = "Create your account";
+        subtitle.textContent = "Enter your email and we'll send you a verification code.";
+        button.textContent = "Send verification code";
+        switchText.textContent = "Already have an account?";
+        switchButton.textContent = "Log in";
+        emailInput.readOnly = false;
+    } else if (signupStep === "code") {
+        title.textContent = "Check your email";
+        subtitle.textContent = `We sent an 8-digit code to ${signupEmail}`;
+        button.textContent = "Verify code";
+        switchText.textContent = "Wrong email?";
+        switchButton.textContent = "Start over";
+        emailInput.readOnly = true;
+        setTimeout(() => document.getElementById("signupCode")?.focus(), 50);
+    } else {
+        title.textContent = "Set your password";
+        subtitle.textContent = "Your email is verified. Create a password for future logins.";
+        button.textContent = "Create account";
+        switchText.textContent = "Verified email";
+        switchButton.textContent = signupEmail;
+        emailInput.readOnly = true;
+        resendButton.style.display = "none";
+        setTimeout(() => document.getElementById("signupPassword")?.focus(), 50);
+    }
 }
-
-
-/* =====================================================
-   AUTH MESSAGE
-===================================================== */
 
 function showAuthMessage(text, type) {
-
-    const box =
-        document.getElementById("authMessage");
-
+    const box = document.getElementById("authMessage");
     box.textContent = text;
-
-    box.className =
-        "message show " + type;
-
+    box.className = "message show " + type;
 }
-
 
 function clearAuthMessage() {
-
-    const box =
-        document.getElementById("authMessage");
-
+    const box = document.getElementById("authMessage");
     box.textContent = "";
-
     box.className = "message";
-
 }
-
 
 /* =====================================================
    PROFILE MESSAGE
 ===================================================== */
 
 function showProfileMessage(text, type) {
-
-    const box =
-        document.getElementById("profileMessage");
-
+    const box = document.getElementById("profileMessage");
     box.textContent = text;
-
-    box.className =
-        "message show " + type;
-
+    box.className = "message show " + type;
 }
 
+/* =====================================================
+   AUTH HELPERS
+===================================================== */
+
+function makeTemporaryPassword() {
+    const bytes = new Uint8Array(24);
+    crypto.getRandomValues(bytes);
+    return Array.from(bytes, b => b.toString(16).padStart(2, "0")).join("") + "!A9";
+}
+
+function normalizeAuthError(error) {
+    const message = (error?.message || "").toLowerCase();
+    if (message.includes("rate limit") || message.includes("too many")) {
+        return "Too many attempts. Please wait a little and try again.";
+    }
+    if (message.includes("invalid login credentials")) {
+        return "Email or password is incorrect.";
+    }
+    if (message.includes("user already registered")) {
+        return "This email is already registered. Please log in instead.";
+    }
+    if (message.includes("expired")) {
+        return "This verification code has expired. Please request a new one.";
+    }
+    if (message.includes("invalid") && message.includes("token")) {
+        return "The verification code is incorrect. Please check it and try again.";
+    }
+    return error?.message || "Something went wrong. Please try again.";
+}
+
+async function sendSignupCode() {
+    const email = document.getElementById("email").value.trim().toLowerCase();
+    if (!email) throw new Error("Please enter your email address.");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        throw new Error("Please enter a valid email address.");
+    }
+
+    // Supabase requires a password when creating an email/password account.
+    // A temporary random password is used until the email is verified; the user
+    // chooses the real password after entering the code.
+    signupTempPassword = makeTemporaryPassword();
+    const { data, error } = await supabaseClient.auth.signUp({
+        email,
+        password: signupTempPassword
+    });
+    if (error) throw error;
+
+    if (data?.user?.identities && data.user.identities.length === 0) {
+        throw new Error("This email is already registered. Please log in instead.");
+    }
+
+    signupEmail = email;
+    signupStep = "code";
+    document.getElementById("email").value = email;
+    document.getElementById("signupCode").value = "";
+    updateAuthUI();
+    showAuthMessage("Verification code sent. Check your inbox.", "success");
+}
+
+async function resendSignupCode() {
+    if (!signupEmail) return;
+    const button = document.getElementById("resendCodeButton");
+    button.disabled = true;
+    button.textContent = "Sending…";
+    clearAuthMessage();
+
+    try {
+        const { error } = await supabaseClient.auth.resend({
+            type: "signup",
+            email: signupEmail
+        });
+        if (error) throw error;
+        showAuthMessage("A new verification code has been sent.", "success");
+    } catch (error) {
+        showAuthMessage(normalizeAuthError(error), "error");
+    } finally {
+        button.disabled = false;
+        button.textContent = "Resend code";
+    }
+}
+
+async function verifySignupCode() {
+    const code = document.getElementById("signupCode").value.trim();
+    if (!/^\d{8}$/.test(code)) {
+        throw new Error("Please enter the 8-digit verification code.");
+    }
+
+    const { data, error } = await supabaseClient.auth.verifyOtp({
+        email: signupEmail,
+        token: code,
+        type: "email"
+    });
+    if (error) throw error;
+    if (!data?.user) throw new Error("Verification failed. Please try again.");
+
+    currentUser = data.user;
+    signupStep = "verified";
+    updateAuthUI();
+    showAuthMessage("Email verified. Now create your password.", "success");
+}
+
+async function finishSignup() {
+    const password = document.getElementById("signupPassword").value;
+    const confirm = document.getElementById("signupPasswordConfirm").value;
+
+    if (password.length < 6) throw new Error("Password must be at least 6 characters.");
+    if (password !== confirm) throw new Error("The two passwords do not match.");
+    if (!currentUser) {
+        throw new Error("Your verification session expired. Please start again.");
+    }
+
+    const { data, error } = await supabaseClient.auth.updateUser({
+        password
+    });
+    if (error) throw error;
+
+    currentUser = data.user || currentUser;
+    signupTempPassword = "";
+    signupStep = "email";
+
+    showAuthMessage("Account created successfully.", "success");
+
+    setTimeout(async function() {
+        closeAuth();
+        await openApplication();
+    }, 450);
+}
 
 /* =====================================================
    LOGIN / SIGNUP
 ===================================================== */
 
-document
-    .getElementById("authForm")
-    .addEventListener(
-        "submit",
-        async function(event) {
+document.getElementById("authForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+    clearAuthMessage();
 
-            event.preventDefault();
+    const button = document.getElementById("submitButton");
+    button.disabled = true;
 
-            clearAuthMessage();
+    try {
+        if (authMode === "login") {
+            const email = document.getElementById("email").value.trim().toLowerCase();
+            const password = document.getElementById("password").value;
 
+            if (!email) throw new Error("Please enter your email address.");
+            if (!password) throw new Error("Please enter your password.");
 
-            const email =
-                document
-                    .getElementById("email")
-                    .value
-                    .trim();
+            button.textContent = "Logging in…";
+            const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+            if (error) throw error;
 
+            currentUser = data.user;
+            showAuthMessage("Logged in successfully.", "success");
+            setTimeout(async function() {
+                closeAuth();
+                await openApplication();
+            }, 350);
 
-            const password =
-                document
-                    .getElementById("password")
-                    .value;
+        } else if (signupStep === "email") {
+            button.textContent = "Sending…";
+            await sendSignupCode();
 
+        } else if (signupStep === "code") {
+            button.textContent = "Verifying…";
+            await verifySignupCode();
 
-            const button =
-                document
-                    .getElementById("submitButton");
-
-
-            button.disabled = true;
-
-            button.textContent =
-                "Please wait...";
-
-
-            try {
-
-                if (authMode === "signup") {
-
-                    const {
-                        data,
-                        error
-                    } =
-                        await supabaseClient.auth.signUp({
-                            email,
-                            password
-                        });
-
-
-                    if (error) {
-                        throw error;
-                    }
-
-
-                    // Supabase returns success even for an email that is
-                    // already registered (to avoid leaking which emails
-                    // exist). An empty identities array means this email
-                    // already has an account.
-                    if (
-                        data.user &&
-                        data.user.identities &&
-                        data.user.identities.length === 0
-                    ) {
-
-                        showAuthMessage(
-                            "This email is already registered. Please log in instead.",
-                            "error"
-                        );
-
-                    } else {
-
-                        showAuthMessage(
-                            "Account created. Check your email to verify your account.",
-                            "success"
-                        );
-
-                    }
-
-                } else {
-
-                    const {
-                        data,
-                        error
-                    } =
-                        await supabaseClient.auth.signInWithPassword({
-                            email,
-                            password
-                        });
-
-
-                    if (error) {
-                        throw error;
-                    }
-
-
-                    showAuthMessage(
-                        "Logged in successfully.",
-                        "success"
-                    );
-
-
-                    currentUser =
-                        data.user;
-
-
-                    setTimeout(
-                        async function() {
-
-                            closeAuth();
-
-                            await openApplication();
-
-                        },
-                        500
-                    );
-
-                }
-
-            } catch (error) {
-
-                console.error(error);
-
-                showAuthMessage(
-                    error.message ||
-                    "Something went wrong.",
-                    "error"
-                );
-
-            } finally {
-
-                button.disabled = false;
-
-                button.textContent =
-                    authMode === "login"
-                        ? "Log in"
-                        : "Create account";
-
-            }
-
+        } else {
+            button.textContent = "Creating…";
+            await finishSignup();
         }
-    );
 
+    } catch (error) {
+        console.error(error);
+        showAuthMessage(normalizeAuthError(error), "error");
+    } finally {
+        button.disabled = false;
+        if (authMode === "login") {
+            button.textContent = "Log in";
+        } else if (signupStep === "email") {
+            button.textContent = "Send verification code";
+        } else if (signupStep === "code") {
+            button.textContent = "Verify code";
+        } else {
+            button.textContent = "Create account";
+        }
+    }
+});
+
+document.getElementById("signupCode").addEventListener("input", function() {
+    this.value = this.value.replace(/\D/g, "").slice(0, 8);
+});
 
 /* =====================================================
    OPEN APPLICATION
