@@ -1343,6 +1343,418 @@ footer {
         max-width: 140px;
     }
 }
+
+/* =========================================================
+   LETTERLY — LARGE, CALM LETTER UI
+   Only visual/layout refinements requested for:
+   profile view, inbox, reading a letter, and writing a letter.
+   ========================================================= */
+
+/* ---------- APP / INBOX ---------- */
+
+#inboxPage .app-heading {
+    text-align: center;
+    margin: 12px auto 34px;
+    max-width: 900px;
+}
+
+#inboxPage .app-heading h1 {
+    text-align: center;
+    font-size: clamp(42px, 5vw, 62px);
+    letter-spacing: -2.8px;
+    margin-bottom: 14px;
+}
+
+#inboxPage .app-heading p {
+    text-align: center;
+    font-size: 17px;
+}
+
+#inboxPage .inbox-tabs {
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 28px;
+}
+
+#inboxPage .inbox-tab {
+    min-width: 132px;
+    padding: 13px 24px;
+    font-size: 15px;
+}
+
+#inboxPage #letterList {
+    max-width: 980px;
+    margin: 0 auto;
+}
+
+#inboxPage .letter-row {
+    min-height: 104px;
+    padding: 24px 28px;
+    border-radius: 20px;
+    gap: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.035);
+}
+
+#inboxPage .letter-row-avatar {
+    width: 58px;
+    height: 58px;
+    font-size: 20px;
+}
+
+#inboxPage .letter-row-name {
+    font-size: 16px;
+}
+
+#inboxPage .letter-row-date {
+    font-size: 13px;
+}
+
+#inboxPage .letter-row-subject {
+    font-size: 16px;
+    margin-top: 7px;
+}
+
+#inboxPage .letter-empty {
+    padding: 80px 20px;
+    font-size: 15px;
+}
+
+/* ---------- VIEW SOMEONE'S PROFILE ---------- */
+
+#viewProfileModal {
+    padding: 24px;
+}
+
+#viewProfileModal .modal-box {
+    width: min(92vw, 780px);
+    max-width: 780px;
+    min-height: 620px;
+    max-height: 90vh;
+    padding: 58px 64px 52px;
+    border-radius: 30px;
+    box-shadow: 0 30px 90px rgba(0,0,0,0.16);
+}
+
+#viewProfileModal .close {
+    top: 22px;
+    right: 26px;
+    width: 42px;
+    height: 42px;
+    font-size: 28px;
+    line-height: 42px;
+    border-radius: 50%;
+}
+
+#viewProfileModal .vp-header {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 16px;
+    margin-bottom: 34px;
+}
+
+#viewProfileModal .vp-avatar {
+    width: 112px;
+    height: 112px;
+    font-size: 38px;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+}
+
+#viewProfileModal .vp-name {
+    text-align: center;
+    font-size: 34px;
+    letter-spacing: -1.2px;
+    margin-bottom: 8px;
+}
+
+#viewProfileModal .vp-country {
+    text-align: center;
+    font-size: 15px;
+}
+
+#viewProfileModal .vp-chips {
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 34px;
+}
+
+#viewProfileModal .vp-chip {
+    padding: 10px 16px;
+    font-size: 13.5px;
+}
+
+#viewProfileModal .vp-section {
+    max-width: 620px;
+    margin: 0 auto 28px;
+    padding-top: 22px;
+    border-top: 1px solid #eee;
+}
+
+#viewProfileModal .vp-label {
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 1.2px;
+    margin-bottom: 10px;
+}
+
+#viewProfileModal .vp-text {
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.85;
+}
+
+#viewProfileModal #vpSendLetterBtn {
+    display: block;
+    max-width: 620px;
+    margin: 34px auto 0;
+    padding: 17px 24px;
+    font-size: 15px;
+}
+
+/* ---------- WRITE A LETTER ---------- */
+
+#composeModal {
+    padding: 24px;
+}
+
+#composeModal .modal-box {
+    width: min(92vw, 740px);
+    max-width: 740px;
+    min-height: 600px;
+    max-height: 90vh;
+    padding: 58px 60px 48px;
+    border-radius: 30px;
+    box-shadow: 0 30px 90px rgba(0,0,0,0.16);
+}
+
+#composeModal .close {
+    top: 22px;
+    right: 26px;
+    width: 42px;
+    height: 42px;
+    font-size: 28px;
+    line-height: 42px;
+    border-radius: 50%;
+}
+
+#composeModal .modal-box h2 {
+    text-align: center;
+    font-size: 38px;
+    letter-spacing: -1.4px;
+    margin-bottom: 10px;
+}
+
+#composeModal .modal-subtitle {
+    text-align: center;
+    font-size: 15px;
+    margin-bottom: 34px;
+}
+
+#composeModal .form-group {
+    margin-bottom: 22px;
+}
+
+#composeModal .form-group label {
+    font-size: 12px;
+    letter-spacing: .4px;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 9px;
+}
+
+#composeModal .form-group input,
+#composeModal .form-group textarea {
+    padding: 16px 18px;
+    border-radius: 15px;
+    font-size: 16px;
+}
+
+#composeModal #composeSubject {
+    min-height: 54px;
+}
+
+#composeModal #composeContent {
+    min-height: 285px !important;
+    line-height: 1.75;
+    resize: vertical;
+}
+
+#composeModal .form-submit {
+    padding: 16px;
+    font-size: 15px;
+    margin-top: 8px;
+}
+
+/* ---------- READ A LETTER ---------- */
+
+#readLetterModal {
+    padding: 24px;
+}
+
+#readLetterModal .modal-box {
+    width: min(92vw, 780px);
+    max-width: 780px;
+    min-height: 620px;
+    max-height: 90vh;
+    padding: 58px 64px 60px;
+    border-radius: 30px;
+    box-shadow: 0 30px 90px rgba(0,0,0,0.16);
+}
+
+#readLetterModal .close {
+    top: 22px;
+    right: 26px;
+    width: 42px;
+    height: 42px;
+    font-size: 28px;
+    line-height: 42px;
+    border-radius: 50%;
+}
+
+#readLetterModal .read-letter-meta {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 12px;
+    margin-bottom: 34px;
+    padding-bottom: 26px;
+}
+
+#readLetterModal .read-letter-avatar {
+    width: 72px;
+    height: 72px;
+    font-size: 22px;
+}
+
+#readLetterModal #readLetterFrom {
+    text-align: center;
+    font-size: 19px !important;
+    margin-bottom: 5px;
+}
+
+#readLetterModal .read-letter-date {
+    text-align: center;
+    font-size: 13px;
+}
+
+#readLetterModal #readLetterSubject {
+    text-align: center;
+    font-size: clamp(28px, 4vw, 38px) !important;
+    line-height: 1.2;
+    letter-spacing: -1px;
+    margin: 0 auto 30px !important;
+    max-width: 620px;
+}
+
+#readLetterModal #readLetterContent {
+    max-width: 620px;
+    margin: 0 auto;
+    font-size: 17px;
+    line-height: 1.9;
+    color: #333;
+}
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 800px) {
+    #inboxPage .app-heading {
+        margin-top: 4px;
+        margin-bottom: 28px;
+    }
+
+    #inboxPage .app-heading h1 {
+        font-size: 42px;
+    }
+
+    #inboxPage .inbox-tabs {
+        gap: 8px;
+    }
+
+    #inboxPage .inbox-tab {
+        min-width: 118px;
+        padding: 12px 18px;
+    }
+
+    #inboxPage .letter-row {
+        min-height: 92px;
+        padding: 20px 18px;
+        gap: 14px;
+        border-radius: 18px;
+    }
+
+    #inboxPage .letter-row-avatar {
+        width: 50px;
+        height: 50px;
+    }
+
+    #inboxPage .letter-row-subject {
+        font-size: 15px;
+        max-width: none;
+    }
+
+    #viewProfileModal,
+    #composeModal,
+    #readLetterModal {
+        padding: 12px;
+    }
+
+    #viewProfileModal .modal-box {
+        width: 96vw;
+        min-height: 0;
+        max-height: 92vh;
+        padding: 48px 24px 32px;
+        border-radius: 26px;
+    }
+
+    #viewProfileModal .vp-avatar {
+        width: 92px;
+        height: 92px;
+    }
+
+    #viewProfileModal .vp-name {
+        font-size: 30px;
+    }
+
+    #viewProfileModal .vp-text {
+        font-size: 15px;
+        line-height: 1.75;
+    }
+
+    #composeModal .modal-box {
+        width: 96vw;
+        min-height: 0;
+        max-height: 92vh;
+        padding: 48px 22px 30px;
+        border-radius: 26px;
+    }
+
+    #composeModal .modal-box h2 {
+        font-size: 32px;
+    }
+
+    #composeModal #composeContent {
+        min-height: 240px !important;
+    }
+
+    #readLetterModal .modal-box {
+        width: 96vw;
+        min-height: 0;
+        max-height: 92vh;
+        padding: 48px 24px 36px;
+        border-radius: 26px;
+    }
+
+    #readLetterModal #readLetterSubject {
+        font-size: 28px !important;
+    }
+
+    #readLetterModal #readLetterContent {
+        font-size: 16px;
+        line-height: 1.85;
+    }
+}
+
 </style>
 </head>
 
